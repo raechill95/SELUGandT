@@ -1,0 +1,888 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="last-modified" content="2017-12-07 19:49:18 -0600">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- meta "search-domain" used for google site search function google_search() -->
+    <meta name="search-domain" value="">
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/lesson.css" />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon-dc.ico" />
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+    <title>Python for ecologists: Data workflows and automation</title>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      
+      
+      <a href="http://datacarpentry.org" class="pull-left">
+        <img class="navbar-logo" src="../assets/img/dc-icon-black.svg" alt="Data Carpentry logo" />
+      </a>
+      
+
+      
+      <a class="navbar-brand" href="../">Home</a>
+
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+	
+        <li><a href="../conduct/">Code of Conduct</a></li>
+
+	
+        
+        <li><a href="../setup/">Setup</a></li>
+        <li><a href="../reference/">Reference</a></li>
+        <li class="dropdown">
+          <a href="../" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Episodes <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            
+            <li><a href="../00-short-introduction-to-Python/">Short Introduction to Programming in Python</a></li>
+            
+            <li><a href="../01-starting-with-data/">Starting With Data</a></li>
+            
+            <li><a href="../02-index-slice-subset/">Indexing, Slicing and Subsetting DataFrames in Python</a></li>
+            
+            <li><a href="../03-data-types-and-format/">Data Types and Formats</a></li>
+            
+            <li><a href="../04-merging-data/">Combining DataFrames with pandas</a></li>
+            
+            <li><a href="../05-loops-and-functions/">Data workflows and automation</a></li>
+            
+            <li><a href="../06-visualization-ggplot-python/">Making Plots With ggplot</a></li>
+            
+            <li><a href="../07-putting-it-all-together/">Data Ingest & Visualization - Matplotlib & Pandas</a></li>
+            
+            <li><a href="../08-working-with-sql/">Accessing SQLite Databases Using Python & Pandas</a></li>
+            
+          </ul>
+        </li>
+	
+
+	
+	
+        <li class="dropdown">
+          <a href="../" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Extras <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            
+          </ul>
+        </li>
+	
+
+	
+        <li><a href="../license/">License</a></li>
+      </ul>
+      <form class="navbar-form navbar-right" role="search" id="search" onsubmit="google_search(); return false;">
+        <div class="form-group">
+          <input type="text" id="google-search" placeholder="Search..." aria-label="Google site search">
+        </div>
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+<div class="row">
+  <div class="col-md-1">
+    <h3>
+      
+      <a href="../04-merging-data/"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
+      
+    </h3>
+  </div>
+  <div class="col-md-10">
+    
+    <h3 class="maintitle"><a href="../">Python for ecologists</a></h3>
+    <h1 class="maintitle">Data workflows and automation</h1>
+    
+  </div>
+  <div class="col-md-1">
+    <h3>
+      
+      <a href="../06-visualization-ggplot-python/"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      
+    </h3>
+  </div>
+</div>
+
+
+<blockquote class="objectives">
+  <h2>Overview</h2>
+
+  <div class="row">
+    <div class="col-md-3">
+      <strong>Teaching:</strong> 40 min
+      <br/>
+      <strong>Exercises:</strong> 50 min
+    </div>
+    <div class="col-md-9">
+      <strong>Questions</strong>
+      <ul>
+	
+	<li><p>Can I automate operations in Python?</p>
+</li>
+	
+	<li><p>What are functions and why should I use them?</p>
+</li>
+	
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-9">
+      <strong>Objectives</strong>
+      <ul>
+	
+	<li><p>Describe why for loops are used in Python.</p>
+</li>
+	
+	<li><p>Employ for loops to automate data analysis.</p>
+</li>
+	
+	<li><p>Write unique filenames in Python.</p>
+</li>
+	
+	<li><p>Build reusable code in Python.</p>
+</li>
+	
+	<li><p>Write functions using conditional statements (if, then, else).</p>
+</li>
+	
+      </ul>
+    </div>
+  </div>
+
+</blockquote>
+
+<p>So far, we’ve used Python and the pandas library to explore and manipulate
+individual datasets by hand, much like we would do in a spreadsheet. The beauty
+of using a programming language like Python, though, comes from the ability to
+automate data processing through the use of loops and functions.</p>
+
+<h2 id="for-loops">For loops</h2>
+
+<p>Loops allow us to repeat a workflow (or series of actions) a given number of
+times or while some condition is true. We would use a loop to automatically
+process data that’s stored in multiple files (daily values with one file per
+year, for example). Loops lighten our work load by performing repeated tasks
+without our direct involvement and make it less likely that we’ll introduce
+errors by making mistakes while processing each file by hand.</p>
+
+<p>Let’s write a simple for loop that simulates what a kid might see during a
+visit to the zoo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">animals</span> <span class="o">=</span> <span class="p">[</span><span class="s">'lion'</span><span class="p">,</span> <span class="s">'tiger'</span><span class="p">,</span> <span class="s">'crocodile'</span><span class="p">,</span> <span class="s">'vulture'</span><span class="p">,</span> <span class="s">'hippo'</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">animals</span><span class="p">)</span>
+<span class="p">[</span><span class="s">'lion'</span><span class="p">,</span> <span class="s">'tiger'</span><span class="p">,</span> <span class="s">'crocodile'</span><span class="p">,</span> <span class="s">'vulture'</span><span class="p">,</span> <span class="s">'hippo'</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">creature</span> <span class="ow">in</span> <span class="n">animals</span><span class="p">:</span>
+<span class="o">...</span>    <span class="k">print</span><span class="p">(</span><span class="n">creature</span><span class="p">)</span>
+<span class="n">lion</span>
+<span class="n">tiger</span>
+<span class="n">crocodile</span>
+<span class="n">vulture</span>
+<span class="n">hippo</span>
+</code></pre></div></div>
+
+<p>The line defining the loop must start with <code class="highlighter-rouge">for</code> and end with a colon, and the
+body of the loop must be indented.</p>
+
+<p>In this example, <code class="highlighter-rouge">creature</code> is the loop variable that takes the value of the next
+entry in <code class="highlighter-rouge">animals</code> every time the loop goes around. We can call the loop variable
+anything we like. After the loop finishes, the loop variable will still exist
+and will have the value of the last entry in the collection:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">animals</span> <span class="o">=</span> <span class="p">[</span><span class="s">'lion'</span><span class="p">,</span> <span class="s">'tiger'</span><span class="p">,</span> <span class="s">'crocodile'</span><span class="p">,</span> <span class="s">'vulture'</span><span class="p">,</span> <span class="s">'hippo'</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">creature</span> <span class="ow">in</span> <span class="n">animals</span><span class="p">:</span>
+<span class="o">...</span>    <span class="k">pass</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="s">'The loop variable is now: '</span> <span class="o">+</span> <span class="n">creature</span><span class="p">)</span>
+<span class="n">The</span> <span class="n">loop</span> <span class="n">variable</span> <span class="ow">is</span> <span class="n">now</span><span class="p">:</span> <span class="n">hippo</span>
+</code></pre></div></div>
+
+<p>We are not asking python to print the value of the loop variable anymore, but
+the for loop still runs and the value of <code class="highlighter-rouge">creature</code> changes on each pass through
+the loop. The statement <code class="highlighter-rouge">pass</code> in the body of the loop just means “do nothing”.</p>
+
+<blockquote class="challenge">
+  <h2 id="challenge---loops">Challenge - Loops</h2>
+
+  <ol>
+    <li>
+      <p>What happens if we don’t include the <code class="highlighter-rouge">pass</code> statement?</p>
+    </li>
+    <li>
+      <p>Rewrite the loop so that the animals are separated by commas, not new lines
+(Hint: You can concatenate strings using a plus sign. For example,
+<code class="highlighter-rouge">print(string1 + string2)</code> outputs ‘string1string2’).</p>
+    </li>
+  </ol>
+</blockquote>
+
+<h2 id="automating-data-processing-using-for-loops">Automating data processing using For Loops</h2>
+
+<p>The file we’ve been using so far, <code class="highlighter-rouge">surveys.csv</code>, contains 25 years of data and is
+very large. We would like to separate the data for each year into a separate
+file.</p>
+
+<p>Let’s start by making a new directory inside the folder <code class="highlighter-rouge">data</code> to store all of
+these files using the module <code class="highlighter-rouge">os</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kn">import</span> <span class="nn">os</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s">'data/yearly_files'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The command <code class="highlighter-rouge">os.mkdir</code> is equivalent to <code class="highlighter-rouge">mkdir</code> in the shell. Just so we are
+sure, we can check that the new directory was created within the <code class="highlighter-rouge">data</code> folder:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">'data'</span><span class="p">)</span>
+<span class="p">[</span><span class="s">'plots.csv'</span><span class="p">,</span>
+ <span class="s">'portal_mammals.sqlite'</span><span class="p">,</span>
+ <span class="s">'species.csv'</span><span class="p">,</span>
+ <span class="s">'survey2001.csv'</span><span class="p">,</span>
+ <span class="s">'survey2002.csv'</span><span class="p">,</span>
+ <span class="s">'surveys.csv'</span><span class="p">,</span>
+ <span class="s">'surveys2002_temp.csv'</span><span class="p">,</span>
+ <span class="s">'yearly_files'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>The command <code class="highlighter-rouge">os.listdir</code> is equivalent to <code class="highlighter-rouge">ls</code> in the shell.</p>
+
+<p>In previous lessons, we saw how to use the library pandas to load the species
+data into memory as a DataFrame, how to select a subset of the data using some
+criteria, and how to write the DataFrame into a csv file. Let’s write a script
+that performs those three steps in sequence for the year 2002:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+
+<span class="c"># Load the data into a DataFrame</span>
+<span class="n">surveys_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/surveys.csv'</span><span class="p">)</span>
+
+<span class="c"># Select only data for 2002</span>
+<span class="n">surveys2002</span> <span class="o">=</span> <span class="n">surveys_df</span><span class="p">[</span><span class="n">surveys_df</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="mi">2002</span><span class="p">]</span>
+
+<span class="c"># Write the new DataFrame to a csv file</span>
+<span class="n">surveys2002</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s">'data/yearly_files/surveys2002.csv'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>To create yearly data files, we could repeat the last two commands over and
+over, once for each year of data. Repeating code is neither elegant nor
+practical, and is very likely to introduce errors into your code. We want to
+turn what we’ve just written into a loop that repeats the last two commands for
+every year in the dataset.</p>
+
+<p>Let’s start by writing a loop that simply prints the names of the files we want
+to create - the dataset we are using covers 1977 through 2002, and we’ll create
+a separate file for each of those years. Listing the filenames is a good way to
+confirm that the loop is behaving as we expect.</p>
+
+<p>We have seen that we can loop over a list of items, so we need a list of years
+to loop over. We can get the years in our DataFrame with:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">surveys_df</span><span class="p">[</span><span class="s">'year'</span><span class="p">]</span>
+
+<span class="mi">0</span>        <span class="mi">1977</span>
+<span class="mi">1</span>        <span class="mi">1977</span>
+<span class="mi">2</span>        <span class="mi">1977</span>
+<span class="mi">3</span>        <span class="mi">1977</span>
+         <span class="o">...</span>
+<span class="mi">35545</span>    <span class="mi">2002</span>
+<span class="mi">35546</span>    <span class="mi">2002</span>
+<span class="mi">35547</span>    <span class="mi">2002</span>
+<span class="mi">35548</span>    <span class="mi">2002</span>
+</code></pre></div></div>
+
+<p>but we want only unique years, which we can get using the <code class="highlighter-rouge">unique</code> function
+which we have already seen.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">surveys_df</span><span class="p">[</span><span class="s">'year'</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<span class="n">array</span><span class="p">([</span><span class="mi">1977</span><span class="p">,</span> <span class="mi">1978</span><span class="p">,</span> <span class="mi">1979</span><span class="p">,</span> <span class="mi">1980</span><span class="p">,</span> <span class="mi">1981</span><span class="p">,</span> <span class="mi">1982</span><span class="p">,</span> <span class="mi">1983</span><span class="p">,</span> <span class="mi">1984</span><span class="p">,</span> <span class="mi">1985</span><span class="p">,</span> <span class="mi">1986</span><span class="p">,</span> <span class="mi">1987</span><span class="p">,</span>
+       <span class="mi">1988</span><span class="p">,</span> <span class="mi">1989</span><span class="p">,</span> <span class="mi">1990</span><span class="p">,</span> <span class="mi">1991</span><span class="p">,</span> <span class="mi">1992</span><span class="p">,</span> <span class="mi">1993</span><span class="p">,</span> <span class="mi">1994</span><span class="p">,</span> <span class="mi">1995</span><span class="p">,</span> <span class="mi">1996</span><span class="p">,</span> <span class="mi">1997</span><span class="p">,</span> <span class="mi">1998</span><span class="p">,</span>
+       <span class="mi">1999</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">2001</span><span class="p">,</span> <span class="mi">2002</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">int64</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Putting this into our for loop we get</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">surveys_df</span><span class="p">[</span><span class="s">'year'</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+<span class="o">...</span>    <span class="n">filename</span><span class="o">=</span><span class="s">'data/yearly_files/surveys'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="o">+</span> <span class="s">'.csv'</span>
+<span class="o">...</span>    <span class="k">print</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1977</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1978</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1979</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1980</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1981</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1982</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1983</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1984</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1985</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1986</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1987</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1988</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1989</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1990</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1991</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1992</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1993</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1994</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1995</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1996</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1997</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1998</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys1999</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys2000</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys2001</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">data</span><span class="o">/</span><span class="n">yearly_files</span><span class="o">/</span><span class="n">surveys2002</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div></div>
+
+<p>We can now add the rest of the steps we need to create separate text files:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Load the data into a DataFrame</span>
+<span class="n">surveys_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/surveys.csv'</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">surveys_df</span><span class="p">[</span><span class="s">'year'</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+
+    <span class="c"># Select data for the year</span>
+    <span class="n">surveys_year</span> <span class="o">=</span> <span class="n">surveys_df</span><span class="p">[</span><span class="n">surveys_df</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="n">year</span><span class="p">]</span>
+
+    <span class="c"># Write the new DataFrame to a csv file</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="s">'data/yearly_files/surveys'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="o">+</span> <span class="s">'.csv'</span>
+    <span class="n">surveys_year</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Look inside the <code class="highlighter-rouge">yearly_files</code> directory and check a couple of the files you
+just created to confirm that everything worked as expected.</p>
+
+<h2 id="writing-unique-filenames">Writing Unique FileNames</h2>
+
+<p>Notice that the code above created a unique filename for each year.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>filename = 'data/yearly_files/surveys' + str(year) + '.csv'
+</code></pre></div></div>
+
+<p>Let’s break down the parts of this name:</p>
+
+<ul>
+  <li>The first part is simply some text that specifies the directory to store our
+data file in (data/yearly_files/) and the first part of the file name
+(surveys): <code class="highlighter-rouge">'data/yearly_files/surveys'</code></li>
+  <li>We can concatenate this with the value of a variable, in this case <code class="highlighter-rouge">year</code> by
+using the plus <code class="highlighter-rouge">+</code> sign and the variable we want to add to the file name: <code class="highlighter-rouge">+
+str(year)</code></li>
+  <li>Then we add the file extension as another text string: <code class="highlighter-rouge">+ '.csv'</code></li>
+</ul>
+
+<p>Notice that we use single quotes to add text strings. The variable is not
+surrounded by quotes. This code produces the string
+<code class="highlighter-rouge">data/yearly_files/surveys2002.csv</code> which contains the path to the new filename
+AND the file name itself.</p>
+
+<blockquote class="challenge">
+  <h2 id="challenge---modifying-loops">Challenge - Modifying loops</h2>
+
+  <ol>
+    <li>
+      <p>Some of the surveys you saved are missing data (they have null values that
+show up as NaN - Not A Number - in the DataFrames and do not show up in the text
+files). Modify the for loop so that the entries with null values are not
+included in the yearly files.</p>
+    </li>
+    <li>
+      <p>Let’s say you only want to look at data from a given multiple of years. How would you modify your loop in order to generate a data file for only every 5th year, starting from 1977?</p>
+    </li>
+    <li>
+      <p>Instead of splitting out the data by years, a colleague wants to do analyses each species separately. How would you write a unique csv file for each species?</p>
+    </li>
+  </ol>
+</blockquote>
+
+<h2 id="building-reusable-and-modular-code-with-functions">Building reusable and modular code with functions</h2>
+
+<p>Suppose that separating large data files into individual yearly files is a task
+that we frequently have to perform. We could write a <strong>for loop</strong> like the one above
+every time we needed to do it but that would be time consuming and error prone.
+A more elegant solution would be to create a reusable tool that performs this
+task with minimum input from the user. To do this, we are going to turn the code
+we’ve already written into a function.</p>
+
+<p>Functions are reusable, self-contained pieces of code that are called with a
+single command. They can be designed to accept arguments as input and return
+values, but they don’t need to do either. Variables declared inside functions
+only exist while the function is running and if a variable within the function
+(a local variable) has the same name as a variable somewhere else in the code,
+the local variable hides but doesn’t overwrite the other.</p>
+
+<p>Every method used in Python (for example, <code class="highlighter-rouge">print</code>) is a function, and the
+libraries we import (say, <code class="highlighter-rouge">pandas</code>) are a collection of functions. We will only
+use functions that are housed within the same code that uses them, but it’s also
+easy to write functions that can be used by different programs.</p>
+
+<p>Functions are declared following this general structure:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">this_is_the_function_name</span><span class="p">(</span><span class="n">input_argument1</span><span class="p">,</span> <span class="n">input_argument2</span><span class="p">):</span>
+
+    <span class="c"># The body of the function is indented</span>
+    <span class="c"># This function prints the two arguments to screen</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'The function arguments are:'</span><span class="p">,</span> <span class="n">input_argument1</span><span class="p">,</span> <span class="n">input_argument2</span><span class="p">,</span> <span class="s">'(this is done inside the function!)'</span><span class="p">)</span>
+
+    <span class="c"># And returns their product</span>
+    <span class="k">return</span> <span class="n">input_argument1</span> <span class="o">*</span> <span class="n">input_argument2</span>
+</code></pre></div></div>
+
+<p>The function declaration starts with the word <code class="highlighter-rouge">def</code>, followed by the function
+name and any arguments in parenthesis, and ends in a colon. The body of the
+function is indented just like loops are. If the function returns something when
+it is called, it includes a return statement at the end.</p>
+
+<p>This is how we call the function:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">product_of_inputs</span> <span class="o">=</span> <span class="n">this_is_the_function_name</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">The</span> <span class="n">function</span> <span class="n">arguments</span> <span class="n">are</span><span class="p">:</span> <span class="mi">2</span> <span class="mi">5</span> <span class="p">(</span><span class="n">this</span> <span class="ow">is</span> <span class="n">done</span> <span class="n">inside</span> <span class="n">the</span> <span class="n">function</span><span class="err">!</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="s">'Their product is:'</span><span class="p">,</span> <span class="n">product_of_inputs</span><span class="p">,</span> <span class="s">'(this is done outside the function!)'</span><span class="p">)</span>
+<span class="n">Their</span> <span class="n">product</span> <span class="ow">is</span><span class="p">:</span> <span class="mi">10</span> <span class="p">(</span><span class="n">this</span> <span class="ow">is</span> <span class="n">done</span> <span class="n">outside</span> <span class="n">the</span> <span class="n">function</span><span class="err">!</span><span class="p">)</span>
+</code></pre></div></div>
+
+<blockquote class="challenge">
+  <h2 id="challenge---functions">Challenge - Functions</h2>
+
+  <ol>
+    <li>Change the values of the arguments in the function and check its output</li>
+    <li>Try calling the function by giving it the wrong number of arguments (not 2)
+  or not assigning the function call to a variable (no <code class="highlighter-rouge">product_of_inputs =</code>)</li>
+    <li>Declare a variable inside the function and test to see where it exists (Hint:
+  can you print it from outside the function?)</li>
+    <li>Explore what happens when a variable both inside and outside the function
+  have the same name. What happens to the global variable when you change the
+  value of the local variable?</li>
+  </ol>
+</blockquote>
+
+<p>We can now turn our code for saving yearly data files into a function. There are
+many different “chunks” of this code that we can turn into functions, and we can
+even create functions that call other functions inside them. Let’s first write a
+function that separates data for just one year and saves that data to a file:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">one_year_csv_writer</span><span class="p">(</span><span class="n">this_year</span><span class="p">,</span> <span class="n">all_data</span><span class="p">):</span>
+    <span class="s">"""
+    Writes a csv file for data from a given year.
+
+    this_year --- year for which data is extracted
+    all_data --- DataFrame with multi-year data
+    """</span>
+
+    <span class="c"># Select data for the year</span>
+    <span class="n">surveys_year</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="n">all_data</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="n">this_year</span><span class="p">]</span>
+
+    <span class="c"># Write the new DataFrame to a csv file</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="s">'data/yearly_files/function_surveys'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">this_year</span><span class="p">)</span> <span class="o">+</span> <span class="s">'.csv'</span>
+    <span class="n">surveys_year</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The text between the two sets of triple double quotes is called a docstring and
+contains the documentation for the function. It does nothing when the function
+is running and is therefore not necessary, but it is good practice to include
+docstrings as a reminder of what the code does. Docstrings in functions also
+become part of their ‘official’ documentation:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">one_year_csv_writer</span><span class="err">?</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">one_year_csv_writer</span><span class="p">(</span><span class="mi">2002</span><span class="p">,</span><span class="n">surveys_df</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>We changed the root of the name of the csv file so we can distinguish it from
+the one we wrote before. Check the <code class="highlighter-rouge">yearly_files</code> directory for the file. Did it
+do what you expect?</p>
+
+<p>What we really want to do, though, is create files for multiple years without
+having to request them one by one. Let’s write another function that replaces
+the entire For loop by simply looping through a sequence of years and repeatedly
+calling the function we just wrote, <code class="highlighter-rouge">one_year_csv_writer</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">yearly_data_csv_writer</span><span class="p">(</span><span class="n">start_year</span><span class="p">,</span> <span class="n">end_year</span><span class="p">,</span> <span class="n">all_data</span><span class="p">):</span>
+    <span class="s">"""
+    Writes separate csv files for each year of data.
+
+    start_year --- the first year of data we want
+    end_year --- the last year of data we want
+    all_data --- DataFrame with multi-year data
+    """</span>
+
+    <span class="c"># "end_year" is the last year of data we want to pull, so we loop to end_year+1</span>
+    <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_year</span><span class="p">,</span> <span class="n">end_year</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">one_year_csv_writer</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">all_data</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Because people will naturally expect that the end year for the files is the last
+year with data, the for loop inside the function ends at <code class="highlighter-rouge">end_year + 1</code>. By
+writing the entire loop into a function, we’ve made a reusable tool for whenever
+we need to break a large data file into yearly files. Because we can specify the
+first and last year for which we want files, we can even use this function to
+create files for a subset of the years available. This is how we call this
+function:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Load the data into a DataFrame</span>
+<span class="n">surveys_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/surveys.csv'</span><span class="p">)</span>
+
+<span class="c"># Create csv files</span>
+<span class="n">yearly_data_csv_writer</span><span class="p">(</span><span class="mi">1977</span><span class="p">,</span> <span class="mi">2002</span><span class="p">,</span> <span class="n">surveys_df</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>BEWARE! If you are using IPython Notebooks and you modify a function, you MUST
+re-run that cell in order for the changed function to be available to the rest
+of the code. Nothing will visibly happen when you do this, though, because
+simply defining a function without <em>calling</em> it doesn’t produce an output. Any
+cells that use the now-changed functions will also have to be re-run for their
+output to change.</p>
+
+<blockquote class="challenge">
+  <h2 id="challenge--more-functions">Challenge- More functions</h2>
+
+  <ol>
+    <li>Add two arguments to the functions we wrote that take the path of the
+directory where the files will be written and the root of the file name.
+Create a new set of files with a different name in a different directory.</li>
+    <li>How could you use the function <code class="highlighter-rouge">yearly_data_csv_writer</code> to create a csv file
+for only one year? (Hint: think about the syntax for <code class="highlighter-rouge">range</code>)</li>
+    <li>Make the functions return a list of the files they have written. There are
+many ways you can do this (and you should try them all!): either of the
+functions can print to screen, either can use a return statement to give back
+numbers or strings to their function call, or you can use some combination of
+the two. You could also try using the <code class="highlighter-rouge">os</code> library to list the contents of
+directories.</li>
+    <li>Explore what happens when variables are declared inside each of the functions
+versus in the main (non-indented) body of your code. What is the scope of the
+variables (where are they visible)? What happens when they have the same name
+  but are given different values?</li>
+  </ol>
+</blockquote>
+
+<p>The functions we wrote demand that we give them a value for every argument.
+Ideally, we would like these functions to be as flexible and independent as
+possible. Let’s modify the function <code class="highlighter-rouge">yearly_data_csv_writer</code> so that the
+<code class="highlighter-rouge">start_year</code> and <code class="highlighter-rouge">end_year</code> default to the full range of the data if they are
+not supplied by the user. Arguments can be given default values with an equal
+sign in the function declaration. Any arguments in the function without default
+values (here, <code class="highlighter-rouge">all_data</code>) is a required argument and MUST come before the
+argument with default values (which are optional in the function call).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">def</span> <span class="nf">yearly_data_arg_test</span><span class="p">(</span><span class="n">all_data</span><span class="p">,</span> <span class="n">start_year</span> <span class="o">=</span> <span class="mi">1977</span><span class="p">,</span> <span class="n">end_year</span> <span class="o">=</span> <span class="mi">2002</span><span class="p">):</span>
+        <span class="s">"""
+        Modified from yearly_data_csv_writer to test default argument values!
+
+        start_year --- the first year of data we want --- default: 1977
+        end_year --- the last year of data we want --- default: 2002
+        all_data --- DataFrame with multi-year data
+        """</span>
+
+        <span class="k">return</span> <span class="n">start_year</span><span class="p">,</span> <span class="n">end_year</span>
+
+
+    <span class="n">start</span><span class="p">,</span><span class="n">end</span> <span class="o">=</span> <span class="n">yearly_data_arg_test</span> <span class="p">(</span><span class="n">surveys_df</span><span class="p">,</span> <span class="mi">1988</span><span class="p">,</span> <span class="mi">1993</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Both optional arguments:</span><span class="se">\t</span><span class="s">'</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+
+    <span class="n">start</span><span class="p">,</span><span class="n">end</span> <span class="o">=</span> <span class="n">yearly_data_arg_test</span> <span class="p">(</span><span class="n">surveys_df</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Default values:</span><span class="se">\t\t\t</span><span class="s">'</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Both optional arguments:	1988 1993
+    Default values:			1977 2002
+</code></pre></div></div>
+
+<p>The “\t” in the <code class="highlighter-rouge">print</code> statements are tabs, used to make the text align and be
+easier to read.</p>
+
+<p>But what if our dataset doesn’t start in 1977 and end in 2002? We can modify the
+function so that it looks for the start and end years in the dataset if those
+dates are not provided:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">def</span> <span class="nf">yearly_data_arg_test</span><span class="p">(</span><span class="n">all_data</span><span class="p">,</span> <span class="n">start_year</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">end_year</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="s">"""
+        Modified from yearly_data_csv_writer to test default argument values!
+
+        start_year --- the first year of data we want --- default: None - check all_data
+        end_year --- the last year of data we want --- default: None - check all_data
+        all_data --- DataFrame with multi-year data
+        """</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">start_year</span><span class="p">:</span>
+            <span class="n">start_year</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">all_data</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">end_year</span><span class="p">:</span>
+            <span class="n">end_year</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">all_data</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">start_year</span><span class="p">,</span> <span class="n">end_year</span>
+
+
+    <span class="n">start</span><span class="p">,</span><span class="n">end</span> <span class="o">=</span> <span class="n">yearly_data_arg_test</span> <span class="p">(</span><span class="n">surveys_df</span><span class="p">,</span> <span class="mi">1988</span><span class="p">,</span> <span class="mi">1993</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Both optional arguments:</span><span class="se">\t</span><span class="s">'</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+
+    <span class="n">start</span><span class="p">,</span><span class="n">end</span> <span class="o">=</span> <span class="n">yearly_data_arg_test</span> <span class="p">(</span><span class="n">surveys_df</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Default values:</span><span class="se">\t\t\t</span><span class="s">'</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Both optional arguments:	1988 1993
+    Default values:			1977 2002
+</code></pre></div></div>
+
+<p>The default values of the <code class="highlighter-rouge">start_year</code> and <code class="highlighter-rouge">end_year</code> arguments in the function
+<code class="highlighter-rouge">yearly_data_arg_test</code> are now <code class="highlighter-rouge">None</code>. This is a build-it constant in Python
+that indicates the absence of a value - essentially, that the variable exists in
+the namespace of the function (the directory of variable names) but that it
+doesn’t correspond to any existing object.</p>
+
+<blockquote class="challenge">
+  <h2 id="challenge---variables">Challenge - Variables</h2>
+
+  <ol>
+    <li>
+      <p>What type of object corresponds to a variable declared as <code class="highlighter-rouge">None</code>? (Hint:
+create a variable set to <code class="highlighter-rouge">None</code> and use the function <code class="highlighter-rouge">type()</code>)</p>
+    </li>
+    <li>
+      <p>Compare the behavior of the function <code class="highlighter-rouge">yearly_data_arg_test</code> when the
+arguments have <code class="highlighter-rouge">None</code> as a default and when they do not have default values.</p>
+    </li>
+    <li>
+      <p>What happens if you only include a value for <code class="highlighter-rouge">start_year</code> in the function
+call? Can you write the function call with only a value for <code class="highlighter-rouge">end_year</code>? (Hint:
+think about how the function must be assigning values to each of the arguments -
+this is related to the need to put the arguments without default values before
+those with default values in the function definition!)</p>
+    </li>
+  </ol>
+</blockquote>
+
+<h2 id="if-loops">If Loops</h2>
+
+<p>The body of the test function now has two conditional loops (if loops) that
+check the values of <code class="highlighter-rouge">start_year</code> and <code class="highlighter-rouge">end_year</code>. If loops execute the body of
+the loop when some condition is met. They commonly look something like this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+
+    <span class="k">if</span> <span class="n">a</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">:</span> <span class="c"># meets first condition?</span>
+
+        <span class="c"># if a IS less than zero</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'a is a negative number'</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">a</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span> <span class="c"># did not meet first condition. meets second condition?</span>
+
+        <span class="c"># if a ISN'T less than zero and IS more than zero</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'a is a positive number'</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span> <span class="c"># met neither condition</span>
+
+        <span class="c"># if a ISN'T less than zero and ISN'T more than zero</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'a must be zero!'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Which would return:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    a is a positive number
+</code></pre></div></div>
+
+<p>Change the value of <code class="highlighter-rouge">a</code> to see how this function works. The statement <code class="highlighter-rouge">elif</code>
+means “else if”, and all of the conditional statements must end in a colon.</p>
+
+<p>The if loops in the function <code class="highlighter-rouge">yearly_data_arg_test</code> check whether there is an
+object associated with the variable names <code class="highlighter-rouge">start_year</code> and <code class="highlighter-rouge">end_year</code>. If those
+variables are <code class="highlighter-rouge">None</code>, the if loops return the boolean <code class="highlighter-rouge">True</code> and execute whaever
+is in their body. On the other hand, if the variable names are associated with
+some value (they got a number in the function call), the if loops return <code class="highlighter-rouge">False</code>
+and do not execute. The opposite conditional statements, which would return
+<code class="highlighter-rouge">True</code> if the variables were associated with objects (if they had received value
+in the function call), would be <code class="highlighter-rouge">if start_year</code> and <code class="highlighter-rouge">if end_year</code>.</p>
+
+<p>As we’ve written it so far, the function <code class="highlighter-rouge">yearly_data_arg_test</code> associates
+values in the function call with arguments in the function definition just based
+in their order. If the function gets only two values in the function call, the
+first one will be associated with <code class="highlighter-rouge">all_data</code> and the second with <code class="highlighter-rouge">start_year</code>,
+regardless of what we intended them to be. We can get around this problem by
+calling the function using keyword arguments, where each of the arguments in the
+function definition is associated with a keyword and the function call passes
+values to the function using these keywords:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">def</span> <span class="nf">yearly_data_arg_test</span><span class="p">(</span><span class="n">all_data</span><span class="p">,</span> <span class="n">start_year</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">end_year</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="s">"""
+        Modified from yearly_data_csv_writer to test default argument values!
+
+        start_year --- the first year of data we want --- default: None - check all_data
+        end_year --- the last year of data we want --- default: None - check all_data
+        all_data --- DataFrame with multi-year data
+        """</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">start_year</span><span class="p">:</span>
+            <span class="n">start_year</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">all_data</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">end_year</span><span class="p">:</span>
+            <span class="n">end_year</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">all_data</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">start_year</span><span class="p">,</span> <span class="n">end_year</span>
+
+
+    <span class="n">start</span><span class="p">,</span><span class="n">end</span> <span class="o">=</span> <span class="n">yearly_data_arg_test</span> <span class="p">(</span><span class="n">surveys_df</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Default values:</span><span class="se">\t\t\t</span><span class="s">'</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+
+    <span class="n">start</span><span class="p">,</span><span class="n">end</span> <span class="o">=</span> <span class="n">yearly_data_arg_test</span> <span class="p">(</span><span class="n">surveys_df</span><span class="p">,</span> <span class="mi">1988</span><span class="p">,</span> <span class="mi">1993</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'No keywords:</span><span class="se">\t\t\t</span><span class="s">'</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+
+    <span class="n">start</span><span class="p">,</span><span class="n">end</span> <span class="o">=</span> <span class="n">yearly_data_arg_test</span> <span class="p">(</span><span class="n">surveys_df</span><span class="p">,</span> <span class="n">start_year</span> <span class="o">=</span> <span class="mi">1988</span><span class="p">,</span> <span class="n">end_year</span> <span class="o">=</span> <span class="mi">1993</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Both keywords, in order:</span><span class="se">\t</span><span class="s">'</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+
+    <span class="n">start</span><span class="p">,</span><span class="n">end</span> <span class="o">=</span> <span class="n">yearly_data_arg_test</span> <span class="p">(</span><span class="n">surveys_df</span><span class="p">,</span> <span class="n">end_year</span> <span class="o">=</span> <span class="mi">1993</span><span class="p">,</span> <span class="n">start_year</span> <span class="o">=</span> <span class="mi">1988</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Both keywords, flipped:</span><span class="se">\t\t</span><span class="s">'</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+
+    <span class="n">start</span><span class="p">,</span><span class="n">end</span> <span class="o">=</span> <span class="n">yearly_data_arg_test</span> <span class="p">(</span><span class="n">surveys_df</span><span class="p">,</span> <span class="n">start_year</span> <span class="o">=</span> <span class="mi">1988</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'One keyword, default end:</span><span class="se">\t</span><span class="s">'</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+
+    <span class="n">start</span><span class="p">,</span><span class="n">end</span> <span class="o">=</span> <span class="n">yearly_data_arg_test</span> <span class="p">(</span><span class="n">surveys_df</span><span class="p">,</span> <span class="n">end_year</span> <span class="o">=</span> <span class="mi">1993</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'One keyword, default start:</span><span class="se">\t</span><span class="s">'</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Default values:			1977 2002
+    No keywords:			1988 1993
+    Both keywords, in order:	1988 1993
+    Both keywords, flipped:		1988 1993
+    One keyword, default end:	1988 2002
+    One keyword, default start:	1977 1993
+</code></pre></div></div>
+
+<blockquote class="challenge">
+  <h2 id="challenge---modifying-functions">Challenge - Modifying functions</h2>
+
+  <ol>
+    <li>
+      <p>Rewrite the <code class="highlighter-rouge">one_year_csv_writer</code> and <code class="highlighter-rouge">yearly_data_csv_writer</code> functions to
+have keyword arguments with default values</p>
+    </li>
+    <li>
+      <p>Modify the functions so that they don’t create yearly files if there is no
+data for a given year and display an alert to the user (Hint: use conditional
+statements and if loops to do this. For an extra challenge, use <code class="highlighter-rouge">try</code>
+statements!)</p>
+    </li>
+    <li>
+      <p>The code below checks to see whether a directory exists and creates one if it
+doesn’t. Add some code to your function that writes out the CSV files, to check
+for a directory to write to.</p>
+    </li>
+  </ol>
+
+  <pre><code class="language-Python">	if 'dir_name_here' in os.listdir('.'):
+	    print('Processed directory exists')
+	else:
+	    os.mkdir('dir_name_here')
+	    print('Processed directory created')
+</code></pre>
+
+  <ol>
+    <li>The code that you have written so far to loop through the years is good,
+however it is not necessarily reproducible with different datasets.
+For instance, what happens to the code if we have additional years of data
+in our CSV files? Using the tools that you learned in the previous activities,
+make a list of all years represented in the data. Then create a loop to process
+your data, that begins at the earliest year and ends at the latest year using
+that list.</li>
+  </ol>
+
+  <p>HINT: you can create a loop with a list as follows: <code class="highlighter-rouge">for years in year_list:</code></p>
+</blockquote>
+
+<blockquote class="keypoints">
+  <h2>Key Points</h2>
+  <ul>
+    
+  </ul>
+</blockquote>
+
+
+
+
+
+<div class="row">
+  <div class="col-md-1">
+    <h3>
+      
+      <a href="../04-merging-data/"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
+      
+    </h3>
+  </div>
+  <div class="col-md-10">
+    
+  </div>
+  <div class="col-md-1">
+    <h3>
+      
+      <a href="../06-visualization-ggplot-python/"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      
+    </h3>
+  </div>
+</div>
+
+
+      
+      <footer>
+  <div class="row">
+    <div class="col-md-6" align="left">
+      <h4>
+	Copyright &copy; 2016
+	
+	<a href="http://datacarpentry.org">Data Carpentry</a>
+	
+      </h4>
+    </div>
+    <div class="col-md-6" align="right">
+      <h4>
+	<a href="/">Source</a>
+	/
+	<a href="/blob/gh-pages/CONTRIBUTING.md">Contributing</a>
+	/
+	<a href="/blob/gh-pages/CITATION">Cite</a>
+	/
+	<a href="">Contact</a>
+      </h4>
+    </div>
+  </div>
+</footer>
+
+      
+    </div>
+    <script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/lesson.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-37305346-2', 'auto');
+  ga('send', 'pageview');
+</script>
+  </body>
+</html>
