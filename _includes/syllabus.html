@@ -12,61 +12,211 @@
   {% endfor %}
   {% assign current = site.start_time %}
 
-  <table class="table table-striped">
-  <tr>
-    <td class="col-md-1"></td>
-    <td class="col-md-3"><a href="{{ page.root }}/setup">Setup</a></td>
-    <td class="col-md-7">Download files used in the lesson.</td>
-  </tr>
-  {% for episode in site.episodes %}
-    {% if episode.start %} {% comment %} Starting a new day? {% endcomment %}
-      {% assign day = day | plus: 1 %}
-      {% if day > 1 %} {% comment %} If about to start day 2 or later, show finishing time for previous day {% endcomment %}
-        {% assign hours = current | divided_by: 60 %}
-        {% assign minutes = current | modulo: 60 %}
-        <tr>
-          {% if multiday %}<td></td>{% endif %}
-          <td class="col-md-1">{% if hours < 10 %}0{% endif %}{{ hours }}:{% if minutes < 10 %}0{% endif %}{{ minutes }}</td>
-          <td class="col-md-3">Finish</td>
-          <td class="col-md-7"></td>
-        </tr>
-      {% endif %}
-      {% assign current = site.start_time %} {% comment %}Re-set start time of this episode to general daily start time {% endcomment %}
-    {% endif %}
-    {% assign hours = current | divided_by: 60 %}
-    {% assign minutes = current | modulo: 60 %}
-    <tr>
-      {% if multiday %}<td class="col-md-1">{% if episode.start %}Day {{ day }}{% endif %}</td>{% endif %}
-      <td class="col-md-1">{% if hours < 10 %}0{% endif %}{{ hours }}:{% if minutes < 10 %}0{% endif %}{{ minutes }}</td>
-      <td class="col-md-3">
-        <a href="{{ page.root }}{{ episode.url }}">{{ episode.title }}</a>
-      </td>
-      <td class="col-md-7">
-        {% if episode.break %}
-          Break
-        {% else %}
-          {% if episode.questions %}
-            {% for question in episode.questions %}
-              {{question|markdownify|strip_html}}
-              {% unless forloop.last %}
-              <br/>
-              {% endunless %}
-            {% endfor %}
-          {% endif %}
-        {% endif %}
-      </td>
-    </tr>
-    {% assign current = current | plus: episode.teaching | plus: episode.exercises | plus: episode.break %}
-  {% endfor %}
-  {% assign hours = current | divided_by: 60 %}
-  {% assign minutes = current | modulo: 60 %}
-  <tr>
-    {% if multiday %}<td></td>{% endif %}
-    <td class="col-md-1">{% if hours < 10 %}0{% endif %}{{ hours }}:{% if minutes < 10 %}0{% endif %}{{ minutes }}</td>
-    <td class="col-md-3">Finish</td>
-    <td class="col-md-7"></td>
-  </tr>
-  </table>
+<h2 id="toc_2">Schedule</h2>
+
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Lecture Topic</th>
+<th>Lab Activity</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1.17.2017</td>
+<td>Syllabus</td>
+<td>LONI Log-In</td>
+</tr>
+<tr>
+<td>1.23.2017</td>
+<td>TBD</td>
+<td>UNIX Hands-On 1</td>
+</tr>
+<tr>
+<td>1.25.2017</td>
+<td>TBD</td>
+<td>UNIX Hands-On 2</td>
+</tr>
+<tr>
+<td>1.26.2017</td>
+<td>None</td>
+<td>HW 1 Due</td>
+</tr>
+<tr>
+<td>1.30.2017</td>
+<td>----</td>
+<td>Nanopore Prep 1</td>
+</tr>
+<tr>
+<td>2.1.2017</td>
+<td>TBD</td>
+<td>Nanopore Prep 2</td>
+</tr>
+<tr>
+<td>2.2.2017</td>
+<td>----</td>
+<td>HW 2 Due</td>
+</tr>
+<tr>
+<td>2.6.2017</td>
+<td>TBD</td>
+<td>Visual Exploration Of Data</td>
+</tr>
+<tr>
+<td>2.8.2017</td>
+<td>TBD</td>
+<td>Command Line Data Exploration</td>
+</tr>
+<tr>
+<td>2.9.2017</td>
+<td>----</td>
+<td>HW 3 Due</td>
+</tr>
+<tr>
+<td>2.13.2017</td>
+<td>Mardi Gras</td>
+<td>Enjoy your break</td>
+</tr>
+<tr>
+<td>2.14.2017</td>
+<td>TBD</td>
+<td>Genome Assembly Activity 1</td>
+</tr>
+<tr>
+<td>2.20.2017</td>
+<td>TBD</td>
+<td>Genome Assembly Activity 2</td>
+</tr>
+<tr>
+<td>2.21.2017</td>
+<td>----</td>
+<td>HW 4 Due</td>
+</tr>
+<tr>
+<td>2.27.2017</td>
+<td>TBD</td>
+<td>Genome Assembly Activity 3</td>
+</tr>
+<tr>
+<td>3.1.2017</td>
+<td>TBD</td>
+<td>Genome Assembly Project Choice</td>
+</tr>
+<tr>
+<td>3.2.2017</td>
+<td>-----</td>
+<td>HW 5 Due</td>
+</tr>
+<tr>
+<td>3.6.2017</td>
+<td>TBD</td>
+<td>Report generation / worktime</td>
+</tr>
+<tr>
+<td>3.8.2017</td>
+<td>TBD</td>
+<td>Report generation / worktime</td>
+</tr>
+<tr>
+<td>3.9.2017</td>
+<td>-----</td>
+<td>HW 6 Due</td>
+</tr>
+<tr>
+<td>3.13.2017</td>
+<td>TBD</td>
+<td>Presentations</td>
+</tr>
+<tr>
+<td>3.15.2017</td>
+<td>TBD</td>
+<td>Transcriptomics Activity 1</td>
+</tr>
+<tr>
+<td>3.16.2017</td>
+<td>---</td>
+<td>HW 7 Due</td>
+</tr>
+<tr>
+<td>3.20.2017</td>
+<td>TBD</td>
+<td>Transcriptomics Activity 2</td>
+</tr>
+<tr>
+<td>3.22.2017</td>
+<td>TBD</td>
+<td>Transcriptomics Activity 3</td>
+</tr>
+<tr>
+<td>3.23.2017</td>
+<td>---</td>
+<td>HW 8 Due</td>
+</tr>
+<tr>
+<td>3.27.2017</td>
+<td>TBD</td>
+<td>Transcriptome Project Choice</td>
+</tr>
+<tr>
+<td>3.29.2017</td>
+<td>TBD</td>
+<td>Report generation / worktime</td>
+</tr>
+<tr>
+<td>4.10.2017</td>
+<td>TBD</td>
+<td>Report generation / worktime</td>
+</tr>
+<tr>
+<td>4.12.2017</td>
+<td>TBD</td>
+<td>Presentations</td>
+</tr>
+<tr>
+<td>4.13.2017</td>
+<td>---</td>
+<td>HW 9 Due</td>
+</tr>
+<tr>
+<td>4.17.2017</td>
+<td>---</td>
+<td>Final Project Choices</td>
+</tr>
+<tr>
+<td>4.19.2017</td>
+<td>---</td>
+<td>Final Project Worktime</td>
+</tr>
+<tr>
+<td>4.20.2017</td>
+<td>---</td>
+<td>HW 10 Due</td>
+</tr>
+<tr>
+<td>4.24.2017</td>
+<td>---</td>
+<td>Final Project Worktime</td>
+</tr>
+<tr>
+<td>4.26.2017</td>
+<td>---</td>
+<td>Final Project Worktime</td>
+</tr>
+<tr>
+<td>5.1.2017</td>
+<td>---</td>
+<td>Final Project Worktime</td>
+</tr>
+<tr>
+<td>5.3.2017</td>
+<td>---</td>
+<td>Wrap-Up</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
 
   <p>
     The actual schedule may vary slightly depending on the topics and exercises chosen by the instructor.
