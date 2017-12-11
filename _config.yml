@@ -20,7 +20,7 @@ kind: "lesson"
 
 # Magic to make URLs resolve both locally and on GitHub.
 # See https://help.github.com/articles/repository-metadata-on-github-pages/.
-repository: datacarpentry/python-ecology-lesson
+repository: wrightaprilm/SELUGandT
 
 # Sites.
 amy_site: "https://amy.software-carpentry.org/workshops"
@@ -67,4 +67,3 @@ exclude:
 
 # Turn off built-in syntax highlighting.
 highlighter: false
-theme: jekyll-theme-slate
