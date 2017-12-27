@@ -49,4 +49,4 @@ Replace 'username' with your username. You will be prompted to enter your LONI p
 
 If you successfully log in, you should see something like this:
 
-![alt text](https://github.com/Paleantology/SELUGandT/blob/master/assets/img/LONI.gif "LONI Logo")
+![LONI Splash Page](https://github.com/Paleantology/SELUGandT/blob/master/assets/img/LONI.png "LONI Logo")
