@@ -1,56 +1,41 @@
 ---
-title: LONI Logins and Setup
+title: LONI Login Activity
 teaching: 0
 exercises: 0
 questions:
-  - "How can I connect to remote computing resources?"
-  - "How can I use GitHub Classroom to manage my assignments?"
+  - "What is a high-performance cluster computer?"
+  - "Why is this useful for our work?"
 objectives:
-  - "Describe the advantages of using programming vs. completing repetitive tasks by hand."
-  - "Define the following data types in Python: strings, integers, and floats."
-  - "Perform mathematical operations in Python using basic operators."
-  - "Define the following as it relates to Python: lists, tuples, and dictionaries."
+  - "Set up an account on the LONI computer."
+  - "Log In to LONI."
+  - "Understand how to use software on this machine."
 ---
 
-# The Basics of Python
+# Making a LONI Account
 
-Python is a general purpose programming language that supports rapid development
-of scripts and applications.
+LONI (Louisiana Optic Network Infrastructure) is a supercomputing network available to public institutions in Louisiana. 
 
-Python's main advantages:
+Supercomputers, or high-performance cluster computers, are really just networks of computers that allow users to access enough processor power to do long jobs. Several of the computations we do this semester will be too complex or will take too long to run on your personal laptop or classroom machine, so we will send these computations to LONI.
 
-* Open Source software, supported by Python Software Foundation
-* Available on all platforms
-* It is a general-purpose programming language
-* Supports multiple programming paradigms
-* Very large community with a rich ecosystem of third-party packages
+LONI's main advantages:
 
-## Interpreter
+* Free for use if you are an LA public institution student.
+* Available on all platforms.
+* Flexible to multiple software installations.
+* Supports multiple programming paradigms.
+* Very large community with good documentation.
 
-Python is an interpreted language which can be used in two ways:
+## Making a LONI Account
 
-* "Interactive" Mode: It functions like an "advanced calculator" Executing
-  one command at a time:
+I have already set up allocations for this course. But each of you needs to have an independent way to access those allocations. To do this, you will create a user account [here](https://allocations.loni.org/login_request.php). Please use your SELU email address for this step. Work through the steps. You should receive a confirmation email shortly about your account being set up. 
 
-```python
-user:host:~$ python
-Python 3.5.1 (default, Oct 23 2015, 18:05:06)
-[GCC 4.8.3] on linux2
-Type "help", "copyright", "credits" or "license" for more information.
->>> 2 + 2
-4
->>> print("Hello World")
-Hello World
-```
+## Joining the Class Allocations
 
-* "Scripting" Mode: Executing a series of "commands" saved in text file,
-  usually with a `.py` extension after the name of your file:
+Once you have received an email confirming your account creation, go [here](https://allocations.loni.org/allocations.php?only_mach=Dell_Cluster). You will click on "Join an existing allocation," and enter my email (april.wright@selu.edu). Join the correct one for the class.
 
-```bash
-user:host:~$ python my_script.py
-Hello World
-```
+## Joining the Class Allocations
 
+Logging in to LONI. Now, we will use our command line interfaces to log into the LONI cluster.
 
 ## Introduction to Python built-in data types
 
