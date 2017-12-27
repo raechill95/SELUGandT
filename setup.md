@@ -1,10 +1,10 @@
 ---
 layout: page
-title: Setup
-root: .
+title: Setup 
+permalink: /setup/
 ---
 
-If you are using a lab computer, these steps have been done for you. You do not need to perform them.
+> If you are using a lab computer, these steps have been done for you. You do not need to perform them.
 
 > ## Where to type commands: How to open a new shell
 > The `shell` is a program that enables us to send commands to the computer and recive output. It is also referred to as the `terminal` or `command line`.
