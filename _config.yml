@@ -6,10 +6,10 @@
 carpentry: "dc"
 
 # Overall title for pages.
-title: "Python for ecologists"
+title: "Genomics and Transcriptomics Lab"
 
 # Contact email address.
-email: lessons@software-carpentry.org
+email: april.wright@selu.edu
 
 #------------------------------------------------------------
 # Generic settings (should not need to change).
