@@ -7,10 +7,11 @@ professors :
   - Raul Diaz
 ---
 
-**Instructor:** {{ page.maintainers | join: ', ' }}
+**Instructors:** April Wright & Raul Diaz
 
 This webpage will contain all the code, data and lecture materials for BIOL 499/599, Genomics and Transcriptomics.
 
+Syllabus is [here](https://github.com/Paleantology/SELUGandT/blob/master/Syllabus.pdf)
 
 > ## Getting Started
 >
