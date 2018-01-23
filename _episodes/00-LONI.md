@@ -42,7 +42,7 @@ Follow the instructions under the Setup Tab to access your terminal. If you are 
 Once the terminal is open, type 
 
 ```
-ssh username@eric.loni.org
+ssh username@qb2.loni.org
 ```
 
 Replace 'username' with your username. You will be prompted to enter your LONI password. You may be asked if you would like to connect. Type 'Yes.'
