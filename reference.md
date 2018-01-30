@@ -10,4 +10,5 @@ git clone
 : creates a local copy of a git repository, with all of its contents. Example:
 ```
 git clone https://github.com/Paleantology/SELUGandT.git
-```  
+``` 
+../../ : allows you to move up levels in a directory 
