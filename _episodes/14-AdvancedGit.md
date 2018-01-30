@@ -53,7 +53,13 @@ Next, we will copy the repository to the cluster.
 scp -r SELUGAndT amwright@qb2.loni.edu:~/
 ```
 
+Now, log in to LONI, and verify that the folder is there. In the directory "files", create a file with your name, like April.txt. Place one interesting fact about yourself in the file. Now exit the cluster. Enter your copy of the repository on your machine. Now, we will use rsync to only grab the files that have changed.
 
+```
+rsync -av  --ignore-existing amwright@qb2.loni.org:~/Gdata/files/ files/
+```
+
+Very handy! Imagine if you were backing up lots of files - how handy is that?
 
 
 
