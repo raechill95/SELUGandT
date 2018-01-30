@@ -10,7 +10,8 @@ git clone
 : creates a local copy of a git repository, with all of its contents. Example:
 ```
 git clone https://github.com/Paleantology/SELUGandT.git
-```  
+
+cd : changes the current directory 
 
 mv: creates a copi of a file, then deletes the original
 
