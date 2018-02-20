@@ -1,3 +1,13 @@
+---
+title: Reading and Writing Genomic Data
+teaching: 120
+exercises: 0
+questions:
+- "How can I safely move large data files?"
+- "How can compression algorithms be used to increase data integrity?"
+- "What is in my genomic data anyway?"
+---
+
 ## Downloading and Checking Big Data
 
 For today, we will briefly practice obtaining, unzipping, and checking large data files. Large data files pose unique challenges. They take a long time to copy, which leaves them vulnerable to corruption. Corruption simply means some part of the file has been written incorrectly. If you are, for example, moving a file between two different computers, and you lose internet, the file may terminate early, or have disjunct parts where copying resumed. Today, we will cover transferring files safely, and checking that they have arrived whole.
@@ -17,7 +27,7 @@ chmod g+rx /work/amwright
 chmod g+rx sample_output/
 ```
 
-to make this one little piece of my directory accessible to you. You may find this command useful later. 
+to make this my directory accessible to you. You may find this command useful later. 
 
 ## Zipped Files
 
@@ -93,6 +103,8 @@ You will note that we have a line identifying the sample, followed by a line of 
  Are the total character encodings for quality. Left to right is increasing quality. How good is this sequence?
  
  These data are from Sasha Mikheyev's 2014 [paper](http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12324/abstract) on the Minion. This was one of the first gen devices. 
+ 
+ 
  
  
  
