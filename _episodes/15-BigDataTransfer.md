@@ -51,7 +51,7 @@ You should see something like this:
 Now, we will untar and unzip one of the files:
 
 ```
-tar xvf sample_output.tar.gz
+tar xvf sample_output.tgz
 ```
 
 Now, enter:
@@ -69,31 +69,31 @@ These problems are not always obvious immediately. So we'll go over how to check
 Tarballs and gzip files have both headers and footers. If either of these are damaged, then the whole file has not been copied. The following command will check that the entirety of the gzip has been copied:
 
 ```UNIX
-gzip -t sample_output.tar.gz
+gzip -t sample_output.tgz
 ```
 
 ## What's in a Genomic Data File? 
 
 The Minion produces data in the FAST5 format. This is based on the HDF5 format for storage of complex data. It is effectively a directory structure stored as a single flat file. This allows us to avoid having to make a tarball, and we can still use compression on the file. 
 
-The best way to illustrate what a FAST5 file is is to look at one. In your sample data folder, go into the sample_fast5 folder. Type:
+The best way to illustrate what a FAST5 file is is to look at one. In your sample data folder, go into the sample_data/reads/20180216_2054_lambda/fast5/pass/0 folder. Type:
 
 ```UNIX
 module load hdf5/1.8.12/INTEL-140-MVAPICH2-2.0
-h5ls -r example.fast5 
+h5ls -r h5ls -d 20180216_FAH50339_MN24138_sequencing_run_lambda_92236_read_9899_ch_442_strand.fast5/Analyses/Basecall_1D_000/BaseCalled_template/Fastq 
 ```
 
 This looks very much like a directory structure. But it's not - it's a single flat file, in which every bit of data has been tagged with what it is. There's a lot of data in here, for example:
 
 ```UNIX
-h5ls -d example.fast5//Analyses/Basecall_2D_000/BaseCalled_2D/Alignment
+h5ls -d 20180216_FAH50339_MN24138_sequencing_run_lambda_92236_read_9899_ch_442_strand.fast5/Analyses/Basecall_1D_000/BaseCalled_template/Fastq
 ```
 Shows a compressed version of the alignment. Overall, this type of file is data rich, but hard to look at. We will use software to break it down next week.
 
-One of the chief things we will do is get FASTQ files out of the raw data. FASTQ files are a little more human readable, containing sequence reads and quality information. Move into the sample_fastq folder and use head to look at the first few lines:
+One of the chief things we will do is get FASTQ files out of the raw data. FASTQ files are a little more human readable, containing sequence reads and quality information. Move into the fastq folder and use head to look at the first few lines:
 
 ```UNIX
-head 1d.fastq
+head fastq_runid_0adce96f0fe4a9964393668c94df10a3f88b9d25_0.fastq
 ```
 
 You will note that we have a line identifying the sample, followed by a line of data and a line of gobbledeegook. 
@@ -102,7 +102,6 @@ You will note that we have a line identifying the sample, followed by a line of 
  
  Are the total character encodings for quality. Left to right is increasing quality. How good is this sequence?
  
- These data are from Sasha Mikheyev's 2014 [paper](http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12324/abstract) on the Minion. This was one of the first gen devices. 
  
  
  
