@@ -8,22 +8,16 @@ Feel free to work in groups, and discuss the assignments as needed. However, I d
 
 	a. /work/  
 	b. user home
-b, a, a, b, 
 
 2. If I wanted to view the files in my home directory, but I am located in my work directory, I would use:  
 	a. ls  
 	b. ls -F  
 	c. ls ~/
 	
- c, 
 3. In your own words, what does the correct command in question two do? 
- the ls will list all the files in the directory you're in, adding the ~/ will list from the directory that is a level above 
-where you are. 
 
 4. In what order do we use the following commands: git push, git add, git commit? In your own words, what does this series of commands do? 
- the proper order is add, commit, push, pull. Add is the staging step, it adds the file to the commit step. Commit adds the file to the local reposioory. Push adds 
-the file to the remote repository. Pull then takes the changes back to the workspace or local repository.
- 
+
 5. This series of commands will not work. Can you spot the issue? Tell me what goes wrong here, and why.
 
 ```
