@@ -163,9 +163,22 @@ length	name	sequence	quals
 368	@bf327144-9003-4b2d-bad5-4cb380f40e8d runid=0adce96f0fe4a9964393668c94df10a3f88b9d25 read=14750 ch=280 start_time=2018-02-16T23:12:05Z 0//20180216_FAH50339_MN24138_sequencing_run_lambda_92236_read_14750_ch_280_strand.fast5TTATTGTAGTCGGTGGTGTGGCGGGTTGACTGAACTTGCTGCTTTTGATGATGATATTATTGAACAGAGGCTCTCCGACGTTCACGGGTGACAAGCCGCGTATTGAAGGCCGATGCTGGCCAAAGTCAAAATCCGTGGCTCCGCCAAAGTGAGAGGCACCTGTCGAATTTGAGGCGTGCAGCCGATGAATCCCGTTATGCGTTTTGCTGTGTTGCCCGCATTGCGGAGAACTGATATCTTAAATTTGGCGACAAAGTGCCGTTTGGCCTCAAATATGGACGCCGGATGACCCCTCCAGCGTGTTTATCTCACGAGCACTCGTACCTGCCGCTCATCCGCCAGCAGGAGCTGGACTTTCTTTGATGCAA	)""'$#$#&&'+)-&,%%%*&%*+(,*%%)*,-'+*+,.//*($%$&(++-,+,*')*)220479,,''),,,'-,)*233:1')),0))*++,&*%&'+-/.4*++'((%&$)#%'&++'.*%'**&*(&(-/**,))'*)&(1,5,+*,'''(%%%,5+-/7&$&,,''')*,(,&''))''$&'%')2/(&*(')..2/5,,'*&&)$('$&--*,'/*(&)'&'%%)#%&&')()(-*0(1++.12225.&)&(*2,74+)%%()*,5.,*)*135//0/351./021-+.*,-233.,)'%))/.&')***.+*($$$(),,0/%%(''(,,.040,-,,)*).1760.10-%###%$'%%"%
 ```
 
-which is a tabular format that can be read by most Office suites, R, Python, etc.
+which is a tabular format that can be read by most Office suites, R, Python, etc. 
 
 
-## So obviously this run didn't go great
+## So obviously this run didn't go great. Homework! 
+
+Embed the PDFs you downloaded below. Write a brief sentence about what the plot means and why it might have failed (or how we can improve). Add, commit and push this file, with your changes, to your copy of this repository by the start of class Tuesday.
+
+![Embed your histogram](../fig/histogram) 
+
+![Embed your quality ](../fig/qulity) 
+
+![Embed your basepairs ](../fig/bp) 
+
+![Embed your read length chart ](../fig/reads) 
+
+
+
 
 
