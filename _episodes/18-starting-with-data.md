@@ -38,6 +38,18 @@ A quick aside that there are Python libraries like [OS
 Library](https://docs.python.org/3/library/os.html) that can work with our
 directory structure, however, that is not our focus today.
 
+### Start an interactive session
+
+```unix
+qsub -I -V -A loni_selu_sys -q single -l nodes=1:ppn=1,walltime=3:00:00
+```
+
+When that suceeds:
+
+```unix 
+source activate py36
+```
+
 ### Our Data
 
 For this lesson, we will be the pore data we obtained from processing our Nanopore output in the software poretools.
@@ -728,3 +740,17 @@ calculated from our data.
 
 	# Multiply all length values by 2
 	nano_dat['length']*2
+
+## Saving your work
+
+Lastly, if you recall, we had discussed at the start of the semester that data are read only. Let us now save our data to a new file:
+
+```unix
+nano_dat.to_csv("column_separated.tsv", sep="\t")
+```
+
+Exit Python (Ctrl + D) and view this file. How does it differ from the original? 
+
+What do you think happens to our modified file if we don't save it? Try restarting Python and see if our nano_dat object is still there. 
+
+Why must the seperator be a tab?
