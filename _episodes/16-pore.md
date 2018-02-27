@@ -170,13 +170,13 @@ which is a tabular format that can be read by most Office suites, R, Python, etc
 
 Embed the PDFs you downloaded below. Write a brief sentence about what the plot means and why it might have failed (or how we can improve). Add, commit and push this file, with your changes, to your copy of this repository by the start of class Tuesday.
 
-![Embed your histogram](../fig/histogram) 
+![Embed your histogram](../homework/figs/histogram.pdf) this graph shows the number of reads of each length
 
-![Embed your quality ](../fig/qulity) 
+![Embed your quality ](../homework/figs/qulity.pdf) shows the quality score of each of the reads. this score could be improved by knowing what we were doing before we did it 
 
-![Embed your basepairs ](../fig/bp) 
+![Embed your basepairs ](../homework/figs/bp.pdf) the number of reads of base pairs increased as time went on 
 
-![Embed your read length chart ](../fig/reads) 
+![Embed your read length chart ](../homework/figs/reads.pdf) shows the yield of the dna sample and the number of reads goes up with time
 
 
 
