@@ -17,12 +17,12 @@ objectives:
     - Describe BOOLEAN objects in Python and manipulate data using BOOLEANs.
 ---
 
-In lesson 01, we read a CSV into a Python pandas DataFrame.  We learned:
+In lesson 17, 18 and 19, we read a CSV into a Python pandas DataFrame.  We learned:
 
 - how to save the DataFrame to a named object,
 - how to perform basic math on the data,
 - how to calculate summary statistics, and
-- how to create plots of the data.
+- how to clean up messy data output
 
 In this lesson, we will explore **ways to access different parts of the data**
 using:
@@ -33,7 +33,15 @@ using:
 
 ## Loading our data
 
-We will continue to use the surveys dataset that we worked with in the last
+First, we'll restart a Python environment with all our packages loaded. 
+
+```UNIX
+
+source activate py36
+
+```
+
+We will continue to use the poretools output dataset that we worked with in the last
 lesson. Let's reopen and read in the data again:
 
 ```python
@@ -41,7 +49,7 @@ lesson. Let's reopen and read in the data again:
 import pandas as pd
 
 # Read in the survey CSV
-sep_data = pd.read_csv("data/column_separated.tsv", delimiter = "\t", index_col=0)
+sep_data = pd.read_csv("column_separated.tsv", delimiter = "\t", index_col=0)
 ```
 
 ## Indexing and Slicing in Python
@@ -162,75 +170,6 @@ We can also reassign values within subsets of our DataFrame.
 But before we do that, let's look at the difference between the concept of
 copying objects and the concept of referencing objects in Python.
 
-## Copying Objects vs Referencing Objects in Python
-
-Let's start with an example:
-
-```python
-# Using the 'copy() method'
-sep_copy = sep_data.copy()
-
-# Using the '=' operator
-sep_copy = sep_data
-```
-
-You might think that the code `sep_copy = sep_data` creates a fresh
-distinct copy of the `surveys_df` DataFrame object. However, using the `=`
-operator in the simple statement `y = x` does **not** create a copy of our
-DataFrame. Instead, `y = x` creates a new variable `y` that references the
-**same** object that `x` refers to. To state this another way, there is only
-**one** object (the DataFrame), and both `x` and `y` refer to it.
-
-In contrast, the `copy()` method for a DataFrame creates a true copy of the
-DataFrame.
-
-Let's look at what happens when we reassign the values within a subset of the
-DataFrame that references another DataFrame object:
-
-```python
-# Assign the value `0` to the first three rows of data in the DataFrame
-sep_copy[0:3] = 0
-```
-
-Let's try the following code:
-
-```python
-# ref_surveys_df was created using the '=' operator
-sep_copy.head()
-
-# surveys_df is the original dataframe
-sep_data.head()
-```
-
-What is the difference between these two dataframes?
-
-When we assigned the first 3 columns the value of `0` using the
-`sep_copy` DataFrame, the `sep_data` DataFrame is modified too.
-Remember we created the reference `sep_copy` object above when we did
-`sep_copy = surveys_df`. Remember `sep_data` and `sep_copy`
-refer to the same exact DataFrame object. If either one changes the object,
-the other will see the same changes to the reference object.
-
-**To review and recap**:
-
-- **Copy** uses the dataframe's `copy()` method
-
-  ```python
-  sep_copy = sep_data.copy()
-  ```
-- A **Reference** is created using the `=` operator
-
-  ```python
-  ref_sep_copy = sep_data
-  ```
-
-Okay, that's enough of that. Let's create a brand new clean dataframe from
-the original data CSV file.
-
-```python
-sep_data = pd.read_csv("data/column_separated.tsv", delimiter = "\t", index_col=0)
-```
-
 ## Slicing Subsets of Rows and Columns in Python
 
 We can select specific ranges of our data in both the row and column directions
@@ -246,7 +185,7 @@ and 4 if we start counting at 1), like this:
 
 ```python
 # iloc[row slicing, column slicing]
-sep_data .iloc[0:3, 1:4]
+sep_data.iloc[0:3, 1:4]
 ```
 
 which gives the **output**
@@ -310,7 +249,7 @@ sep_data.iloc[2, 6]
 gives the **output**
 
 ```
-'sep_data.iloc[2, 6]'
+'ch=199'
 ```
 
 Remember that Python indexing begins at 0. So, the index location [2, 6]
@@ -379,19 +318,18 @@ Experiment with selecting various subsets of the "surveys" data.
 >   list of values as follows:
 >
 >    ```python
->    sep_data[sep_data['length'].isin([1000, 4012, 6000])]
+>    sep_data[sep_data['channel'].isin(['ch=233', 'ch=234'])]
 >    ```
 >
->   Use the `isin` function to find all plots that contain particular species
->   in the "surveys" DataFrame. How many records contain these values?
+>   Use the `isin` function to find all reads that contain particular lengths
+>   in the "sep_data" DataFrame. How many records contain these values?
 >
 > 3. Experiment with other queries. Create a query that finds all rows with a
 >   length value > or equal to 5000.
 >
 > 4. The `~` symbol in Python can be used to return the OPPOSITE of the
 >   selection that you specify in Python. It is equivalent to **is not in**.
->   Write a query that selects all rows with length NOT equal to or greater than 2500 in
->   the "sep_data" data.
+>   Write a query that selects all rows that did not come from channel 233 in the "sep_data" data.
 {: .challenge}
 
 
@@ -475,8 +413,8 @@ We can run `isnull` on a particular column too. What does the code below do?
 
 ```python
 # What does this do?
-empty_weights = sep_data[pd.isnull(sep_data['length'])]['length']
-print(empty_weights)
+empty_lengths = sep_data[pd.isnull(sep_data['length'])]['length']
+print(empty_lengths)
 ```
 
 Let's take a minute to look at the statement above. We are using the Boolean

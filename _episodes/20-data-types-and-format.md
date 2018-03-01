@@ -201,7 +201,7 @@ sep_data['length'].dtype
 > sep_data.channel.astype("float")
 > ```
 >
-> Next try converting `weight` to an integer. What goes wrong here? What is Pandas telling you?
+> Next try converting `channel` to an integer. What goes wrong here? What is Pandas telling you?
 > We will talk about some solutions to this later.
 {: .challenge}
 
@@ -233,6 +233,29 @@ data are available. Pandas will, by default, replace those missing values with
 NaN. However it is good practice to get in the habit of intentionally marking
 cells that have no data, with a no data value! That way there are no questions
 in the future when you (or someone else) explores your data.
+
+### Dates are weird
+
+Date data are hard to work with. How many of you have had the issue of opening a spreadsheet with dates in Excel and having it render them super weird?
+
+What format are the dates in here? We're instead going to break them up into a more useful format. First, let's get rid of the extraneous starter characters:
+
+```UNIX
+sep_data.time = sep_data.time.str.replace('start_time=', '')
+```
+
+Now, let's split on the T.
+
+```unix
+sep_data = sep_data.join(sep_data['time'].str.split('T', 2, expand=True).rename(columns={0:'date', 1:'hours'}))
+```
+
+Now, let's get rid of this extra Z, which is mysterious:
+
+```UNIX
+sep_data.hours = sep_data.hours.str.replace('Z', '')
+sep_data = sep_data.drop('time', axis=1)
+```
 
 ### Where Are the NaN's?
 
@@ -316,7 +339,7 @@ pandas doesn't include the index number for each line.
 
 ```python
 # Write DataFrame to CSV
-df_na.to_csv('data/surveys_complete.csv', index=False)
+sep_data.to_csv('pore_info.tsv', sep='\t', index=False)
 ```
 
 We will use this data file later in the workshop. Check out your working directory to make
