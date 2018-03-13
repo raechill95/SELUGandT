@@ -82,9 +82,9 @@ Let's start by making a new directory inside the folder `data` to store all of
 these files using the module `os`:
 
 ```python
-    import os
+import os
 
-    os.mkdir('data/channel_files')
+os.mkdir('data/channel_files')
 ```
 
 The command `os.mkdir` is equivalent to `mkdir` in the shell. Just so we are
@@ -100,19 +100,27 @@ The command `os.listdir` is equivalent to `ls` in the shell.
 In previous lessons, we saw how to use the library pandas to load the species
 data into memory as a DataFrame, how to select a subset of the data using some
 criteria, and how to write the DataFrame into a CSV file. Let's write a script
-that performs those three steps in sequence for the channel 2002:
+that performs those three steps in sequence for the channel 66:
 
 ```python
 import pandas as pd
 
 # Load the data into a DataFrame
-sep_data = pd.read_csv('out.tsv')
+sep_data = pd.read_csv("pore_info.tsv", delimiter='\t')
 
-# Select only data for the channel 66
-data66 = sep_data[sep_data.channel == 66]
+# Select only data for the channel 22
+data22 = sep_data[sep_data.channel == 22]
+
+```
+Why didn't this work?
+
+```unix
+sep_data['channel'] = sep_data['channel'].str.replace('ch=', '')
+
+sep_data.channel = sep_data.channel.astype("int")
 
 # Write the new DataFrame to a CSV file
-data66.to_csv('data/channel_files/channel66.tsv', sep='\t')
+data22.to_csv('data/channel_files/channel22.tsv', sep='\t')
 ```
 
 To create channel data files, we could repeat the last two commands over and
@@ -131,16 +139,18 @@ to loop over. We can get the channels in our DataFrame with:
 
 ```python
 >>> sep_data['channel']
+0      280
+1      186
+2      199
+3      153
+4      153
+5      330
+6      280
+7      180
+8      186
+9      199
+10     180
 
-0        1977
-1        1977
-2        1977
-3        1977
-         ...
-35545    2002
-35546    2002
-35547    2002
-35548    2002
 ```
 
 but we want only unique channels, which we can get using the `unique` function
@@ -148,9 +158,9 @@ which we have already seen.
 
 ```python
 >>> sep_data['channel'].unique()
-array([1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987,
-       1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998,
-       1999, 2000, 2001, 2002], dtype=int64)
+array([280, 186, 199, 153, 330, 180, 269, 504,  22, 398, 390, 482, 358,
+       233, 248, 152, 442,  50, 244,  62,  65,  59, 313,  99,  11,  76,
+       498, 317, 437, 242, 353, 159, 469])
 ```
 
 Putting this into our for loop we get
@@ -160,48 +170,52 @@ Putting this into our for loop we get
 ...    filename='data/channel_files/channel_data' + str(channel) + '.tsv'
 ...    print(filename)
 ...
-data/channel_files/surveys1977.csv
-data/channel_files/surveys1978.csv
-data/channel_files/surveys1979.csv
-data/channel_files/surveys1980.csv
-data/channel_files/surveys1981.csv
-data/channel_files/surveys1982.csv
-data/channel_files/surveys1983.csv
-data/channel_files/surveys1984.csv
-data/channel_files/surveys1985.csv
-data/channel_files/surveys1986.csv
-data/channel_files/surveys1987.csv
-data/channel_files/surveys1988.csv
-data/channel_files/surveys1989.csv
-data/channel_files/surveys1990.csv
-data/channel_files/surveys1991.csv
-data/channel_files/surveys1992.csv
-data/channel_files/surveys1993.csv
-data/channel_files/surveys1994.csv
-data/channel_files/surveys1995.csv
-data/channel_files/surveys1996.csv
-data/channel_files/surveys1997.csv
-data/channel_files/surveys1998.csv
-data/channel_files/surveys1999.csv
-data/channel_files/surveys2000.csv
-data/channel_files/surveys2001.csv
-data/channel_files/surveys2002.csv
+data/channel_files/channel_data280.tsv
+data/channel_files/channel_data186.tsv
+data/channel_files/channel_data199.tsv
+data/channel_files/channel_data153.tsv
+data/channel_files/channel_data330.tsv
+data/channel_files/channel_data180.tsv
+data/channel_files/channel_data269.tsv
+data/channel_files/channel_data504.tsv
+data/channel_files/channel_data22.tsv
+data/channel_files/channel_data398.tsv
+data/channel_files/channel_data390.tsv
+data/channel_files/channel_data482.tsv
+data/channel_files/channel_data358.tsv
+data/channel_files/channel_data233.tsv
+data/channel_files/channel_data248.tsv
+data/channel_files/channel_data152.tsv
+data/channel_files/channel_data442.tsv
+data/channel_files/channel_data50.tsv
+data/channel_files/channel_data244.tsv
+data/channel_files/channel_data62.tsv
+data/channel_files/channel_data65.tsv
+data/channel_files/channel_data59.tsv
+data/channel_files/channel_data313.tsv
+data/channel_files/channel_data99.tsv
+data/channel_files/channel_data11.tsv
+data/channel_files/channel_data76.tsv
+data/channel_files/channel_data498.tsv
+data/channel_files/channel_data317.tsv
+data/channel_files/channel_data437.tsv
+data/channel_files/channel_data242.tsv
+data/channel_files/channel_data353.tsv
+data/channel_files/channel_data159.tsv
+data/channel_files/channel_data469.tsv
 ```
 
 We can now add the rest of the steps we need to create separate text files:
 
 ```python
-# Load the data into a DataFrame
-sep_data = pd.read_csv('data/out.tsv')
-
 for channel in sep_data['channel'].unique():
 
     # Select data for the channel
     channel_dat = sep_data[sep_data.channel == channel]
 
     # Write the new DataFrame to a CSV file
-    filename = 'data/channel_files/channel_dat' + str(channel) + '.csv'
-    channel_dat.to_csv(filename)
+    filename = 'data/channel_files/channel_dat' + str(channel) + '.tsv'
+    channel_dat.to_csv(filename, sep='\t')
 ```
 
 Look inside the `channel_files` directory and check a couple of the files you
@@ -283,6 +297,8 @@ The function arguments are: 2 5 (this is done inside the function!)
 >>> print('Their product is:', product_of_inputs, '(this is done outside the function!)')
 Their product is: 10 (this is done outside the function!)
 ```
+
+LIVECODE BUILDING THIS FUNCTION HERE. Once it is built, they can procede to challenges.
 
 > ## Challenge - Functions
 >

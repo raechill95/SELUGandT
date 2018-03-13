@@ -27,13 +27,11 @@ objectives:
 import pandas as pd
 
 
-sep_data = pd.read_csv('out.tsv', delimiter='\t')
-```
+sep_data = pd.read_csv("pore_info.tsv", delimiter='\t')
 
-
-```python
-%matplotlib inline
 from ggplot import *
+import matplotlib.pyplot as plt
+plt.switch_backend('agg')
 ```
 
 
@@ -61,7 +59,8 @@ To build a ggplot we need to:
 
 
 ```python
-ggplot( aesthetics= aes(x = 'lane', y = 'length'), data = sep_data )
+myplot = ggplot( aesthetics= aes(x = 'chan', y = 'length'), data = sep_data )
+myplot.save("chanXlength.png", width=15, height=10)
 ```
 
 
@@ -72,7 +71,8 @@ ggplot( aesthetics= aes(x = 'lane', y = 'length'), data = sep_data )
 
 
 ```python
-ggplot( aesthetics= aes(x = 'lane', y = 'length'), data = sep_data ) + geom_point()
+myplot = ggplot( aesthetics= aes(x = 'channel', y = 'length'), data = sep_data ) + geom_point()
+myplot.save("chanXlength.png", width=15, height=10)
 ```
 
 
@@ -86,10 +86,12 @@ plot can also be generated with code like this:
 
 ```python
 # Create
-lane_plot = ggplot( aesthetics= aes(x = 'lane', y = 'length'), data = sep_data ), data = sep_data)
+channel_plot = ggplot( aesthetics= aes(x = 'channel', y = 'length'), data = sep_data ), data = sep_data)
 
 # Draw the plot
-lane_plot + geom_point()
+channel_plot + geom_point()
+myplot.save("chanXlength.png", width=15, height=10)
+
 ```
 
 
@@ -111,7 +113,9 @@ defining the dataset we'll use, lay the axes, and choose a geom.
 
 
 ```python
-ggplot(aes(x = 'lane', y = 'length'), data = sep_data, ) + geom_point()
+myplot = ggplot(aes(x = 'channel', y = 'length'), data = sep_data, ) + geom_point()
+myplot.save("chanXlength.png", width=15, height=10)
+
 ```
 
 
@@ -122,8 +126,10 @@ instance, we can add transparency (alpha) to avoid overplotting.
 
 
 ```python
-ggplot(aes(x = 'lane', y = 'length'), data = sep_data) + \
+myplot = ggplot(aes(x = 'channel', y = 'length'), data = sep_data) + \
     geom_point(alpha = 0.1)
+myplot.save("transparency.png", width=15, height=10)
+   
 ```
 
 
@@ -133,41 +139,24 @@ We can also add colors for all the points
 
 
 ```python
-ggplot(aes(x = 'lane', y = 'length'),data = sep_data) + \
+myplot = ggplot(aes(x = 'channel', y = 'length'),data = sep_data) + \
     geom_point(alpha = 0.1, color = "blue")
-```
-
-
-Or to color each species in the plot differently:
-
-
-
-
-```python
-# ggplot(data = sep_data, aes(x = lane, y = length)) +
-#    geom_point(alpha = 0.1, aes(color=run))
-
-ggplot(aes(x = 'lane', y = 'length', color='run'),data = sep_data) + \
-    geom_point( alpha = 0.1)
+myplot.save("colors.png", width=15, height=10)
+    
 ```
 
 
 # Boxplot
 
-Visualising the distribution of lane within each species.
+Visualising the distribution of channel within each species.
 
 
-
-R code:
-
-```R
-ggplot(data = sep_data, aes(x = run, y = length)) +
-    geom_boxplot()
-```
 
 
 ```python
-ggplot( aes(x = 'run', y = 'length'), data = sep_data) + geom_boxplot()
+boxplot = ggplot( aes(x = 'channel', y = 'length'), data = sep_data) + geom_boxplot()
+boxplot.save("box.png", width=15, height=10)
+
 ```
 
 
@@ -176,23 +165,20 @@ measurements and of their distribution:
 
 
 ```python
-sep_data['run_factor'] = sep_data['run'].astype('category').cat.codes
+sep_data['channel_factor'] = sep_data['channel'].astype('category').cat.codes
 
 
-xlabels = sorted(set(sep_data['run'].values) )
-xcodes = sorted(set(sep_data['run_factor'].values))
+xlabels = sorted(set(sep_data['channel'].values) )
+xcodes = sorted(set(sep_data['channel_factor'].values))
 
-ggplot(aes(x = 'run_factor', y = 'length'),data = sep_data) + \
+points = ggplot(aes(x = 'channel_factor', y = 'length'),data = sep_data) + \
     geom_point(position='jitter',alpha=0.7,jittersize=0.4) + \
         scale_x_continuous(breaks=xcodes, labels=xlabels) + \
-                         xlab('run') + geom_boxplot(alpha=0)
+                         xlab('channel') + geom_boxplot(alpha=0)
+points.save("discretized.png", width=15, height=10)
 
 ```
 
-
-Notice how the boxplot layer is behind the jitter layer? What do you need to
-change in the code to put the boxplot in front of the points such that it's not
-hidden.
 
 ## Challenges
 
@@ -209,7 +195,7 @@ hidden.
 > of the axes is done similarly to adding/modifying other components (i.e., by
 > incrementally adding commands).
 >
-> - Represent lane on the log10 scale; see `scale_y_log10()`
+> - Represent channel on the log10 scale; see `scale_y_log10()`
 >
 > - Create boxplot for `length`.
 >
@@ -245,7 +231,7 @@ ggplot(aes(x = 'run_factor', y = 'length'),data = sep_data) + \
 
 
 ```python
-##  2. Represent lane on the log10 scale; see `scale_y_log10()`.
+##  2. Represent channel on the log10 scale; see `scale_y_log10()`.
 ggplot(aes(x = 'run_factor', y = 'length'),data = sep_data) + \
     geom_jitter(alpha=0.3) + \
         scale_x_discrete(breaks=xcodes, labels=xlabels) + \
@@ -263,58 +249,6 @@ ggplot(aes(x = 'run_factor', y = 'length'),data = sep_data) + \
             scale_y_log(base=10)
 
 ```
-
-
-
-
-# Plotting time series data
-
-Let's calculate number of counts per year for each species. To do that we need
-to group data first and count records within each group.
-
-
-
-
-```python
-yearly_counts = sep_data[['year','run']].groupby(['year', 'run']).size().reset_index()
-yearly_counts.columns = ['year','run', 'n']
-yearly_counts
-```
-
-
-Timelapse data can be visualised as a line plot with years on x axis and counts
-on y axis.
-
-
-
-
-```python
-ggplot(aes(x = 'year', y = 'n'),data = yearly_counts) + \
-     geom_line()
-```
-
-
-Unfortunately this does not work, because we plot data for all the species
-together. We need to tell ggplot to draw a line for each species by modifying
-the aesthetic function to include `group = run`.
-
-
-
-
-```python
-ggplot(aes(x = 'year', y = 'n', group='run'),data = yearly_counts) + geom_line()
-```
-
-
-We will be able to distinguish species in the plot if we add colors.
-
-
-
-
-```python
-ggplot(aes(x = 'year', y = 'n', color='run'),data = yearly_counts) + geom_line()
-```
-
 
 # Faceting
 
@@ -385,7 +319,7 @@ ggplot(aes(x = "year", y = "n", color = "sex", group = "sex"), data = yearly_sex
 
 # Challenge
 
-> Use what you just learned to create a plot that depicts how the average lane
+> Use what you just learned to create a plot that depicts how the average channel
 > of each species changes through the years.
 
 <!-- Answer
@@ -393,14 +327,14 @@ ggplot(aes(x = "year", y = "n", color = "sex", group = "sex"), data = yearly_sex
 
 
 ```python
-yearly_lane = sep_data[["year", "run","lane"]].groupby(["year", "run"]).mean().reset_index()
-yearly_lane.columns =   ["year", "run","avg_lane"]  
-yearly_lane
+yearly_channel = sep_data[["year", "run","channel"]].groupby(["year", "run"]).mean().reset_index()
+yearly_channel.columns =   ["year", "run","avg_channel"]  
+yearly_channel
 ```
 
 
 ```python
-ggplot( aes(x="year", y="avg_lane", color = "run", group = "run"),data = yearly_lane) + \
+ggplot( aes(x="year", y="avg_channel", color = "run", group = "run"),data = yearly_channel) + \
     geom_line() + \
     facet_wrap("run") + \
     theme_bw()
@@ -410,7 +344,7 @@ ggplot( aes(x="year", y="avg_lane", color = "run", group = "run"),data = yearly_
 ```python
 ## Plotting time series challenge:
 ##  Use what you just learned to create a plot that depicts how the
-##  average lane of each species changes through the years.
+##  average channel of each species changes through the years.
 
 ```
 
@@ -421,7 +355,7 @@ geometry allows you to explicitly specify how you want your plots to be
 arranged via formula notation (`rows ~ columns`; a `.` can be used as
 a placeholder that indicates only one row or column).
 
-Let's modify the previous plot to compare how the lanes of male and females
+Let's modify the previous plot to compare how the channels of male and females
 has changed through time.
 
 
@@ -429,16 +363,16 @@ has changed through time.
 
 ```python
 ## One column, facet by rows
-yearly_sex_lane = sep_data[
-    ['year','sex','run','lane']].groupby(
+yearly_sex_channel = sep_data[
+    ['year','sex','run','channel']].groupby(
     ["year", "sex", "run"]).mean().reset_index()
-yearly_sex_lane.columns = ['year','sex','run','avg_lane']
-yearly_sex_lane
+yearly_sex_channel.columns = ['year','sex','run','avg_channel']
+yearly_sex_channel
 ```
 
 
 ```python
-ggplot( aes(x="year", y="avg_lane", color = "run", group = "run"),data = yearly_sex_lane) + \
+ggplot( aes(x="year", y="avg_channel", color = "run", group = "run"),data = yearly_sex_channel) + \
     geom_line() + \
     facet_grid("sex")
 ```
@@ -446,7 +380,7 @@ ggplot( aes(x="year", y="avg_lane", color = "run", group = "run"),data = yearly_
 
 ```python
 # One row, facet by column
-ggplot( aes(x="year", y="avg_lane", color = "run", group = "run"),data = yearly_sex_lane) + \
+ggplot( aes(x="year", y="avg_channel", color = "run", group = "run"),data = yearly_sex_channel) + \
     geom_line() + \
     facet_grid(None, "sex")
 ```

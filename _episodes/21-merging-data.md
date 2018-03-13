@@ -107,7 +107,7 @@ in a subset of the sep_data table.
 sep_head = sep_data.head(10)
 
 # Make a small subset of the good_data frame
-organism_info = pd.read_csv('organism_info', delimiter='\t')
+organism_info = pd.read_csv('organism_data.tsv', delimiter='\t')
 subset = organism_info.head(10)
 ```
 
@@ -159,9 +159,9 @@ The pandas function for performing joins is called `merge` and an Inner join is
 the default option:  
 
 ```python
-merged_inner = pd.merge(left=sep_head,right=subset, left_on='readName', right_on='readName')
-# In this case `readName` is the only column name in  both dataframes, so if we skippd `left_on`
-# And `right_on` arguments we would still get the same result
+merged_inner = pd.merge(left=sep_head,right=subset, left_on='readNum', right_on='readNum')
+# If the same column had different names in the two dataframes,
+#we could specifiy this via "left_on" and "right_on"
 
 # What's the size of the output data?
 merged_inner.shape
@@ -171,39 +171,85 @@ merged_inner
 **OUTPUT:**
 
 ```
-   record_id  month  day  year  plot_id readName sex  hindfoot_length  \
-0          1      7   16  1977        2         NL   M               32   
-1          2      7   16  1977        3         NL   M               33   
-2          3      7   16  1977        2         DM   F               37   
-3          4      7   16  1977        7         DM   M               36   
-4          5      7   16  1977        3         DM   M               35   
-5          8      7   16  1977        1         DM   M               37   
-6          9      7   16  1977        1         DM   F               34   
-7          7      7   16  1977        2         PE   F              NaN   
+   Unnamed: 0_x  length                                           sequence  \
+0             0     368  TTATTGTAGTCGGTGGTGTGGCGGGTTGACTGAACTTGCTGCTTTT...   
+1             1   27977  TTGTTGGCACTTCGTTTCAGTTCTGCGGTGCTGGGCGGCGACCTCG...   
+2             2    3040  GGATTTCAGTTGCATGTTACTTATCCAAATTGTGTTTGGTTAGTCG...   
+3             3   13805  ATGCGTACTTCGTTCATTGTACTTCGTTCCAGTTACGTATTGCTGT...   
+4             5    2731  ATCACCGTTCGAGAGATTACGTATTGCGGATAGCGCCCGTAACCTG...   
+5             6    3224  CTCATAGGTTTCGTTCGGTTACGGTATTGCTGCCATCAGATTGTGT...   
+6             7     652  TCGGTACTTCGCGGTTTCGCAGTTACGTATTGCTTGCGTGTGGAAA...   
+7             8    1216  TTGCGTGGTGAATTCATTCTCCTCGTGAATATCGACTTCAGGACGA...   
+8             9   10827  TTTTTTTGTGTATTGGGCGGCAGCCTCTTTCGCTATTTATGAAATT...   
 
-   weight       genus   species    taxa  
-0     NaN     Neotoma  albigula  Rodent  
-1     NaN     Neotoma  albigula  Rodent  
-2     NaN   Dipodomys  merriami  Rodent  
-3     NaN   Dipodomys  merriami  Rodent  
-4     NaN   Dipodomys  merriami  Rodent  
-5     NaN   Dipodomys  merriami  Rodent  
-6     NaN   Dipodomys  merriami  Rodent  
-7     NaN  Peromyscus  eremicus  Rodent  
+                                               quals  \
+0  )""'$#$#&&'+)-&,%%%*&%*+(,*%%)*,-'+*+,.//*($%$...   
+1  $&%'*'&$%'&(#(+410&+*,$#$$%')()219622522369343...   
+2  +-&7.)*3537&+%+$4'%%%$(*5)+)*-,*.,,.*'**1.19+'...   
+3  %*&'))*,204&'''#'''*'),+,*,11&%(+7+2.0,3-*)*'(...   
+4  %$&*)6:0-+*)+$-'%(**.10'%)'%&''+*16-.76716,)(*...   
+5  ##((+%'$&&0+.103)3//&,'$%%.'*+233++69+.&4**-/4...   
+6  ##&#*&*+.+'&+,*,,&%&%,0/./88,8,)****)**,''&))*...   
+7  )"%%&$'%#%&%++--4;0.,&'&&)&%&$$%&$)'&'%$&.&-$%...   
+8  $$$$&('(*(-&&('*'323,),,)&''+.+%'))0++''%.--*0...   
+
+                                readName  \
+0  @bf327144-9003-4b2d-bad5-4cb380f40e8d   
+1  @f54a0ac6-3563-432f-a447-60e4c95efb79   
+2  @43a565b2-0dcb-4ea6-a32d-3984c3746e47   
+3  @f2f91bb1-2592-4193-b9ac-8d94b0f740b1   
+4  @26ad1236-11c3-40c7-9a6e-13899b65223a   
+5  @d666315c-d4e0-4f04-b34c-475670d82571   
+6  @0d00671e-d5db-4c2f-acba-7fe9061448f0   
+7  @f55e9dec-43f9-45c4-a79f-b04921bbcd84   
+8  @0bb5a3d8-29c6-4513-b6f5-8ad8a76549e6   
+
+                                            runID     readNum channel  \
+0  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25  read=14750  ch=280   
+1  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25   read=7291  ch=186   
+2  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25  read=21764  ch=199   
+3  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25  read=28414  ch=153   
+4  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25   read=7381  ch=330   
+5  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25  read=42346  ch=280   
+6  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25  read=26774  ch=180   
+7  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25  read=59335  ch=186   
+8  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25  read=13975  ch=199   
+
+                                                lane        date     hours  \
+0  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-16  23:12:05   
+1  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-16  21:36:08   
+2  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-17  02:20:52   
+3  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-16  23:56:01   
+4  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-16  21:58:53   
+5  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-17  01:29:03   
+6  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-16  22:38:44   
+7  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-17  02:42:24   
+8  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-17  01:38:34   
+
+  Unnamed: 0_y                        animal  
+0            0  Nerodia_fasciata_museum_prep  
+1            1  Nerodia_fasciata_museum_prep  
+2            2  Nerodia_fasciata_museum_prep  
+3            3  Nerodia_fasciata_museum_prep  
+4            5  Nerodia_fasciata_museum_prep  
+5            6  Nerodia_fasciata_museum_prep  
+6            7  Nerodia_fasciata_museum_prep  
+7            8  Nerodia_fasciata_museum_prep  
+8            9  Nerodia_fasciata_museum_prep
 ```
 
 The result of an inner join of `sep_head` and `subset` is a new DataFrame
 that contains the combined set of columns from `sep_head` and `subset`. It
 *only* contains rows that have two-letter species codes that are the same in
 both the `sep_head` and `subset` DataFrames. In other words, if a row in
-`sep_head` has a value of `readName` that does *not* appear in the `readName`
+`sep_head` has a value of `readNum` that does *not* appear in the `readName`
 column of `species`, it will not be included in the DataFrame returned by an
 inner join.  Similarly, if a row in `subset` has a value of `readName`
-that does *not* appear in the `readName` column of `sep_head`, that row will not
+that does *not* appear in the `readNum` column of `sep_head`, that row will not
 be included in the DataFrame returned by an inner join.
 
 The two DataFrames that we want to join are passed to the `merge` function using
-the `left` and `right` argument. The `left_on='readName'` argument tells `merge`
+the `left` and `right` argument. The `left_on='readNum'` argument tells `merge`
 to use the `readName` column as the join key from `sep_head` (the `left`
 DataFrame). Similarly , the `right_on='readName'` argument tells `merge` to
 use the `readName` column as the join key from `subset` (the `right`
@@ -240,35 +286,83 @@ A left join is performed in pandas by calling the same `merge` function used for
 inner join, but using the `how='left'` argument:
 
 ```python
-merged_left = pd.merge(left=sep_head,right=subset, how='left', left_on='readName', right_on='readName')
+merged_left = pd.merge(left=sep_head,right=subset, how='left', left_on='readNum', right_on='readNum')
 
 merged_left
 
 **OUTPUT:**
 
-   record_id  month  day  year  plot_id readName sex  hindfoot_length  \
-0          1      7   16  1977        2         NL   M               32   
-1          2      7   16  1977        3         NL   M               33   
-2          3      7   16  1977        2         DM   F               37   
-3          4      7   16  1977        7         DM   M               36   
-4          5      7   16  1977        3         DM   M               35   
-5          6      7   16  1977        1         PF   M               14   
-6          7      7   16  1977        2         PE   F              NaN   
-7          8      7   16  1977        1         DM   M               37   
-8          9      7   16  1977        1         DM   F               34   
-9         10      7   16  1977        6         PF   F               20   
+   Unnamed: 0_x  length                                           sequence  \
+0             0     368  TTATTGTAGTCGGTGGTGTGGCGGGTTGACTGAACTTGCTGCTTTT...   
+1             1   27977  TTGTTGGCACTTCGTTTCAGTTCTGCGGTGCTGGGCGGCGACCTCG...   
+2             2    3040  GGATTTCAGTTGCATGTTACTTATCCAAATTGTGTTTGGTTAGTCG...   
+3             3   13805  ATGCGTACTTCGTTCATTGTACTTCGTTCCAGTTACGTATTGCTGT...   
+4             4   17176  TTGGTACAGCCACTTCGTTCAGTTACGTATTGCTGGCGGCGACCTC...   
+5             5    2731  ATCACCGTTCGAGAGATTACGTATTGCGGATAGCGCCCGTAACCTG...   
+6             6    3224  CTCATAGGTTTCGTTCGGTTACGGTATTGCTGCCATCAGATTGTGT...   
+7             7     652  TCGGTACTTCGCGGTTTCGCAGTTACGTATTGCTTGCGTGTGGAAA...   
+8             8    1216  TTGCGTGGTGAATTCATTCTCCTCGTGAATATCGACTTCAGGACGA...   
+9             9   10827  TTTTTTTGTGTATTGGGCGGCAGCCTCTTTCGCTATTTATGAAATT...   
 
-   weight       genus   species    taxa  
-0     NaN     Neotoma  albigula  Rodent  
-1     NaN     Neotoma  albigula  Rodent  
-2     NaN   Dipodomys  merriami  Rodent  
-3     NaN   Dipodomys  merriami  Rodent  
-4     NaN   Dipodomys  merriami  Rodent  
-5     NaN         NaN       NaN     NaN  
-6     NaN  Peromyscus  eremicus  Rodent  
-7     NaN   Dipodomys  merriami  Rodent  
-8     NaN   Dipodomys  merriami  Rodent  
-9     NaN         NaN       NaN     NaN  
+                                               quals  \
+0  )""'$#$#&&'+)-&,%%%*&%*+(,*%%)*,-'+*+,.//*($%$...   
+1  $&%'*'&$%'&(#(+410&+*,$#$$%')()219622522369343...   
+2  +-&7.)*3537&+%+$4'%%%$(*5)+)*-,*.,,.*'**1.19+'...   
+3  %*&'))*,204&'''#'''*'),+,*,11&%(+7+2.0,3-*)*'(...   
+4  $$*'+'&&'&%&).412183012;1118/9//.;6;6587466:2+...   
+5  %$&*)6:0-+*)+$-'%(**.10'%)'%&''+*16-.76716,)(*...   
+6  ##((+%'$&&0+.103)3//&,'$%%.'*+233++69+.&4**-/4...   
+7  ##&#*&*+.+'&+,*,,&%&%,0/./88,8,)****)**,''&))*...   
+8  )"%%&$'%#%&%++--4;0.,&'&&)&%&$$%&$)'&'%$&.&-$%...   
+9  $$$$&('(*(-&&('*'323,),,)&''+.+%'))0++''%.--*0...   
+
+                                readName  \
+0  @bf327144-9003-4b2d-bad5-4cb380f40e8d   
+1  @f54a0ac6-3563-432f-a447-60e4c95efb79   
+2  @43a565b2-0dcb-4ea6-a32d-3984c3746e47   
+3  @f2f91bb1-2592-4193-b9ac-8d94b0f740b1   
+4  @040557c3-1df7-475b-84e5-4ce2ea532508   
+5  @26ad1236-11c3-40c7-9a6e-13899b65223a   
+6  @d666315c-d4e0-4f04-b34c-475670d82571   
+7  @0d00671e-d5db-4c2f-acba-7fe9061448f0   
+8  @f55e9dec-43f9-45c4-a79f-b04921bbcd84   
+9  @0bb5a3d8-29c6-4513-b6f5-8ad8a76549e6   
+
+                                            runID     readNum channel  \
+0  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25  read=14750  ch=280   
+1  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25   read=7291  ch=186   
+2  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25  read=21764  ch=199   
+3  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25  read=28414  ch=153   
+4  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25  read=48784  ch=153   
+5  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25   read=7381  ch=330   
+6  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25  read=42346  ch=280   
+7  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25  read=26774  ch=180   
+8  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25  read=59335  ch=186   
+9  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25  read=13975  ch=199   
+
+                                                lane        date     hours  \
+0  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-16  23:12:05   
+1  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-16  21:36:08   
+2  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-17  02:20:52   
+3  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-16  23:56:01   
+4  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-17  02:11:59   
+5  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-16  21:58:53   
+6  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-17  01:29:03   
+7  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-16  22:38:44   
+8  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-17  02:42:24   
+9  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-17  01:38:34   
+
+  Unnamed: 0_y                        animal  
+0            0  Nerodia_fasciata_museum_prep  
+1            1  Nerodia_fasciata_museum_prep  
+2            2  Nerodia_fasciata_museum_prep  
+3            3  Nerodia_fasciata_museum_prep  
+4          NaN                           NaN  
+5            5  Nerodia_fasciata_museum_prep  
+6            6  Nerodia_fasciata_museum_prep  
+7            7  Nerodia_fasciata_museum_prep  
+8            8  Nerodia_fasciata_museum_prep  
+9            9  Nerodia_fasciata_museum_prep
 ```
 
 The result DataFrame from a left join (`merged_left`) looks very much like the
@@ -276,22 +370,32 @@ result DataFrame from an inner join (`merged_inner`) in terms of the columns it
 contains. However, unlike `merged_inner`, `merged_left` contains the **same
 number of rows** as the original `sep_head` DataFrame. When we inspect
 `merged_left`, we find there are rows where the information that should have
-come from `subset` (i.e., `readName`, `genus`, and `taxa`) is
+come from `subset` (i.e., `readNum`) is
 missing (they contain NaN values):
 
 ```python
-merged_left[ pd.isnull(merged_left.genus) ]
+merged_left[ pd.isnull(merged_left.animal) ]
 **OUTPUT:**
-   record_id  month  day  year  plot_id readName sex  hindfoot_length  \
-5          6      7   16  1977        1         PF   M               14   
-9         10      7   16  1977        6         PF   F               20   
+   Unnamed: 0_x  length                                           sequence  \
+4             4   17176  TTGGTACAGCCACTTCGTTCAGTTACGTATTGCTGGCGGCGACCTC...   
 
-   weight genus species taxa  
-5     NaN   NaN     NaN  NaN  
-9     NaN   NaN     NaN  NaN
+                                               quals  \
+4  $$*'+'&&'&%&).412183012;1118/9//.;6;6587466:2+...   
+
+                                readName  \
+4  @040557c3-1df7-475b-84e5-4ce2ea532508   
+
+                                            runID     readNum channel  \
+4  runid=0adce96f0fe4a9964393668c94df10a3f88b9d25  read=48784  ch=153   
+
+                                                lane        date     hours  \
+4  0//20180216_FAH50339_MN24138_sequencing_run_la...  2018-02-17  02:11:59   
+
+  Unnamed: 0_y animal  
+4          NaN    NaN
 ```
 
-These rows are the ones where the value of `readName` from `sep_head` (in this
+These rows are the ones where the value of `animal` from `sep_head` (in this
 case, `PF`) does not occur in `subset`.
 
 
