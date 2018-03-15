@@ -49,6 +49,9 @@ collections:
     permalink: /:path/
   extras:
     output: true
+  homework:
+    output: true
+    permalink: /:path/
 
 # Set the default layout for things in the episodes collection.
 defaults:
@@ -57,6 +60,16 @@ defaults:
   - scope:
       path: ""
       type: episodes
+    values:
+      layout: episode
+
+# Set the default layout for things in the homework collection.
+defaults:
+  - values:
+      root: ..
+  - scope:
+      path: ""
+      type: homework
     values:
       layout: episode
 
