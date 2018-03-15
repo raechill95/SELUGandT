@@ -27,7 +27,7 @@ objectives:
 import pandas as pd
 
 
-sep_data = pd.read_csv("pore_info.tsv", delimiter='\t')
+sep_data = pd.read_csv("column_separated.tsv", delimiter='\t')
 
 from ggplot import *
 import matplotlib.pyplot as plt
