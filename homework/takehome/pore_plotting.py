@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import argparse
 
 def plot_reads_v_qual(min_dat, x, outputfile):
 	qual1 = min_dat.quals[x]
@@ -34,4 +35,4 @@ if __name__ == "__main__":
 		outfile = args.output	
 		
 	for index, row in df.iterrows():
-    	plot_reads_v_qual(df, index, outfile)	
+		plot_reads_v_qual(df, index, outfile)	
