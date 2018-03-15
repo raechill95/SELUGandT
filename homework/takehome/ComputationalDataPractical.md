@@ -55,3 +55,7 @@ For the last bit, we will make a plot from our joined data with organism informa
 17. Save your plot to the output directory. Embed the plot below.
 
 ![Your figure here](../output/yourfigure) 
+
+### Turning it in
+
+Compress the whole project directory into a .tgz file. Either commit and push to your fork of the course repo, or email it to me.
