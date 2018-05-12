@@ -1,0 +1,22 @@
+#!/bin/bash
+#PBS -q workq
+#PBS -l nodes=1:ppn=20
+#PBS -l walltime=24:00:00
+#PBS -N busco_quantification 
+#PBS -o busco.out
+#PBS -j oe
+#PBS -A loni_selu_gt
+#PBS -m abe
+#PBS -M rachael.johnson-2@selu.edu   
+
+#module load python2.7.10-anaconda 
+module load boost/1.55.0/INTEL-14.0.2 
+
+export AUGUSTUS_CONFIG_PATH=/work/raechill/augustus/config/
+
+datapath=/work/raechill/johnson_final
+cd $datapath
+
+python ../busco/scripts/run_BUSCO.py -o busco_annotation -l sorted.bam -i Hybrid_assembly.fasta -m geno -c 20 -sp zebrafish
+
+

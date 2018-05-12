@@ -1,0 +1,94 @@
+--------------------------------------
+Running PBS prologue script
+--------------------------------------
+User and Job Data:
+--------------------------------------
+Job ID:    491424.qb3
+Username:  raechill
+Group:     loniusers
+Date:      11-May-2018 14:15
+Node:      qb501 (50212)
+--------------------------------------
+PBS has allocated the following nodes:
+
+qb501
+
+A total of 24 processors on 1 nodes allocated
+---------------------------------------------
+Check nodes and clean them of stray processes
+---------------------------------------------
+Checking node qb501 14:15:03 
+Done clearing all the allocated nodes
+------------------------------------------------------
+Concluding PBS prologue script - 11-May-2018 14:15:03
+------------------------------------------------------
+Exception in thread "main" java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at com.simontuffs.onejar.Boot.run(Boot.java:340)
+	at com.simontuffs.onejar.Boot.main(Boot.java:166)
+Caused by: java.lang.IllegalStateException: Inappropriate call if not paired read
+	at htsjdk.samtools.SAMRecord.requireReadPaired(SAMRecord.java:648)
+	at htsjdk.samtools.SAMRecord.getFirstOfPairFlag(SAMRecord.java:706)
+	at org.broadinstitute.pilon.BamFile$MateMap.addRead(BamFile.scala:224)
+	at org.broadinstitute.pilon.BamFile$MateMap$$anonfun$addReads$1.apply(BamFile.scala:220)
+	at org.broadinstitute.pilon.BamFile$MateMap$$anonfun$addReads$1.apply(BamFile.scala:220)
+	at scala.collection.immutable.List.foreach(List.scala:381)
+	at org.broadinstitute.pilon.BamFile$MateMap.addReads(BamFile.scala:220)
+	at org.broadinstitute.pilon.BamFile$MateMap.<init>(BamFile.scala:218)
+	at org.broadinstitute.pilon.BamFile.recruitFlankReads(BamFile.scala:339)
+	at org.broadinstitute.pilon.GapFiller$$anonfun$recruitReadsOfType$1.apply(GapFiller.scala:367)
+	at org.broadinstitute.pilon.GapFiller$$anonfun$recruitReadsOfType$1.apply(GapFiller.scala:366)
+	at scala.collection.immutable.List.foreach(List.scala:381)
+	at org.broadinstitute.pilon.GapFiller.recruitReadsOfType(GapFiller.scala:366)
+	at org.broadinstitute.pilon.GapFiller.recruitFrags(GapFiller.scala:375)
+	at org.broadinstitute.pilon.GapFiller.recruitLocalReads(GapFiller.scala:389)
+	at org.broadinstitute.pilon.GapFiller.recruitReads(GapFiller.scala:391)
+	at org.broadinstitute.pilon.GapFiller.assembleAcrossBreak(GapFiller.scala:51)
+	at org.broadinstitute.pilon.GapFiller.fixBreak(GapFiller.scala:45)
+	at org.broadinstitute.pilon.GenomeRegion$$anonfun$identifyAndFixIssues$4.apply(GenomeRegion.scala:383)
+	at org.broadinstitute.pilon.GenomeRegion$$anonfun$identifyAndFixIssues$4.apply(GenomeRegion.scala:381)
+	at scala.collection.immutable.List.foreach(List.scala:381)
+	at org.broadinstitute.pilon.GenomeRegion.identifyAndFixIssues(GenomeRegion.scala:381)
+	at org.broadinstitute.pilon.GenomeFile$$anonfun$processRegions$4.apply(GenomeFile.scala:119)
+	at org.broadinstitute.pilon.GenomeFile$$anonfun$processRegions$4.apply(GenomeFile.scala:108)
+	at scala.collection.Iterator$class.foreach(Iterator.scala:893)
+	at scala.collection.AbstractIterator.foreach(Iterator.scala:1336)
+	at scala.collection.parallel.ParIterableLike$Foreach.leaf(ParIterableLike.scala:972)
+	at scala.collection.parallel.Task$$anonfun$tryLeaf$1.apply$mcV$sp(Tasks.scala:49)
+	at scala.collection.parallel.Task$$anonfun$tryLeaf$1.apply(Tasks.scala:48)
+	at scala.collection.parallel.Task$$anonfun$tryLeaf$1.apply(Tasks.scala:48)
+	at scala.collection.parallel.Task$class.tryLeaf(Tasks.scala:51)
+	at scala.collection.parallel.ParIterableLike$Foreach.tryLeaf(ParIterableLike.scala:969)
+	at scala.collection.parallel.AdaptiveWorkStealingTasks$WrappedTask$class.internal(Tasks.scala:159)
+	at scala.collection.parallel.AdaptiveWorkStealingForkJoinTasks$WrappedTask.internal(Tasks.scala:443)
+	at scala.collection.parallel.AdaptiveWorkStealingTasks$WrappedTask$class.compute(Tasks.scala:149)
+	at scala.collection.parallel.AdaptiveWorkStealingForkJoinTasks$WrappedTask.compute(Tasks.scala:443)
+	at scala.concurrent.forkjoin.RecursiveAction.exec(RecursiveAction.java:160)
+	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+------------------------------------------------------
+Running PBS epilogue script    - 11-May-2018 14:29:32
+------------------------------------------------------
+Checking node qb501 (MS)
+Checking node qb501 ok
+------------------------------------------------------
+Concluding PBS epilogue script - 11-May-2018 14:29:34
+------------------------------------------------------
+Exit Status:     1
+Job ID:          491424.qb3
+Username:        raechill
+Group:           loniusers
+Job Name:        pilon_improvment
+Session Id:      50211
+Resource Limits: ncpus=1,neednodes=1:ppn=24,nodes=1:ppn=24,walltime=24:00:00
+Resources Used:  cput=00:24:22,mem=48354976kb,vmem=134068620kb,walltime=00:14:30
+Queue Used:      bigmem
+Account String:  loni_selu_gt
+Node:            qb501
+Process id:      51229
+------------------------------------------------------

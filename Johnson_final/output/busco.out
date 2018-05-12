@@ -1,0 +1,47 @@
+--------------------------------------
+Running PBS prologue script
+--------------------------------------
+User and Job Data:
+--------------------------------------
+Job ID:    491603.qb3
+Username:  raechill
+Group:     loniusers
+Date:      12-May-2018 11:08
+Node:      qb064 (87875)
+--------------------------------------
+PBS has allocated the following nodes:
+
+qb064
+
+A total of 20 processors on 1 nodes allocated
+---------------------------------------------
+Check nodes and clean them of stray processes
+---------------------------------------------
+Checking node qb064 11:08:41 
+Done clearing all the allocated nodes
+------------------------------------------------------
+Concluding PBS prologue script - 12-May-2018 11:08:41
+------------------------------------------------------
+WARNING	The dataset you provided does not contain the file dataset.cfg, likely because it is an old version. Default species (fly, eukaryota) will be used as augustus species
+ERROR	Impossible to read Hybrid_assembly.fasta
+------------------------------------------------------
+Running PBS epilogue script    - 12-May-2018 11:08:41
+------------------------------------------------------
+Checking node qb064 (MS)
+Checking node qb064 ok
+------------------------------------------------------
+Concluding PBS epilogue script - 12-May-2018 11:08:43
+------------------------------------------------------
+Exit Status:     0
+Job ID:          491603.qb3
+Username:        raechill
+Group:           loniusers
+Job Name:        busco_quantification
+Session Id:      87874
+Resource Limits: ncpus=1,neednodes=1:ppn=20,nodes=1:ppn=20,walltime=24:00:00
+Resources Used:  cput=00:00:00,mem=0kb,vmem=0kb,walltime=00:00:02
+Queue Used:      workq
+Account String:  loni_selu_gt
+Node:            qb064
+Process id:      88466
+------------------------------------------------------
